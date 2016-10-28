@@ -3,7 +3,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class HttpService {
+export class HttpServiceTest {
   constructor(public http: Http) {
     console.log('Hello Http Provider');
   }
