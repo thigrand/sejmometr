@@ -5,6 +5,9 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import {HttpService, UtilsService, KrsService} from "../providers/";
 
 @NgModule({
   declarations: [
@@ -25,6 +28,10 @@ import { TabsPage } from '../pages/tabs/tabs';
     HomePage,
     TabsPage
   ],
-  providers: []
+  providers: [
+    HttpService,
+    KrsService,
+    UtilsService
+  ]
 })
 export class AppModule {}
