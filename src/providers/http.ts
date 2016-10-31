@@ -1,17 +1,28 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HttpService {
-  private apirUrl: string = 'https://api-v3.mojepanstwo.pl/dane/';
+  private apiUrl: string = 'https://api-v3.mojepanstwo.pl/dane/';
 
-  constructor(public http: Http) {}
+  constructor(
+    public http: Http
+  ) {}
 
-  getResources(method: string){
-    return this.http.get(`${this.apirUrl}${method}`)
+  getResources(method: string, dataObj?: Object){
+    let params: URLSearchParams = new URLSearchParams();
+
+    if(dataObj){
+      let keys: Array<string> = Object.keys(dataObj);
+      keys.forEach(key => {
+        params.set(key,dataObj[key]);
+      });
+    }
+
+    return this.http.get(`${this.apiUrl}${method}`,{
+      search: params
+    })
       .map(this.extractData)
       .catch(this.handleError);
   }
