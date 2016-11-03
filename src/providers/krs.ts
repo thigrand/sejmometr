@@ -1,12 +1,12 @@
-import {HttpService} from "./http";
+import {HttpService} from './http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/';
+import {Observable} from 'rxjs';
 import {
   KrsDataHttpResponse,
   KrsLayers,
   KrsLegalFormsHttpResponse,
   SingleKrsDataHttpResponse
-} from "../interfaces/";
+} from '../interfaces/';
 
 @Injectable()
 /**
@@ -28,7 +28,7 @@ export class KrsService {
    *  Other filter options available at  https://mojepanstwo.pl/api/krs
    * @returns Observable
    */
-  getDataFiltered(filterObj = {}): Observable<KrsDataHttpResponse>{
+  getDataFiltered(filterObj = {}): Observable<KrsDataHttpResponse> {
     return this.httpService.getResources('krs_podmioty.json', filterObj);
   }
   /**
@@ -37,9 +37,9 @@ export class KrsService {
    * @param layers Array of strings with names of additional data you want to get (more infor available at https://mojepanstwo.pl/api/krs)
    * @returns Observable
    */
-  getSingleData(id: string, layers?: KrsLayers.KrsLayersListArr): Observable<SingleKrsDataHttpResponse>{
+  getSingleData(id: string, layers?: KrsLayers.KrsLayersListArr): Observable<SingleKrsDataHttpResponse> {
     let layersObj = layers ? {layers} : {};
-    return this.httpService.getResources(`krs_podmioty/${id}.json`, layersObj)
+    return this.httpService.getResources(`krs_podmioty/${id}.json`, layersObj);
   }
   /**
    * Get list of krs legal forms
@@ -47,7 +47,7 @@ export class KrsService {
    *  All filter options available at  https://mojepanstwo.pl/api/krs
    * @returns Observable
    */
-  getFormyPrawne(filterObj = {}): Observable<KrsLegalFormsHttpResponse>{
+  getFormyPrawne(filterObj = {}): Observable<KrsLegalFormsHttpResponse> {
     return this.httpService.getResources('krs_formy_prawne.json', filterObj);
   }
 }

@@ -1,9 +1,9 @@
 import {
   Dataobject,
   HttpResponse
-} from "./";
+} from './';
 
-interface ParliamentSessionRow{
+interface ParliamentSessionRow {
   'sejm_posiedzenia.data_start': string;
   'sejm_posiedzenia.data_stop': string;
   'sejm_posiedzenia.id': string;
@@ -47,10 +47,10 @@ interface ParliamentSessionRow{
   'sejm_posiedzenia.zapowiedz': string;
 }
 
-export interface SingleParliamentSessionHttpResponse extends Dataobject{
+export interface SingleParliamentSessionHttpResponse extends Dataobject {
   data: ParliamentSessionRow;
 }
 
-export interface ParliamentSessionHttpResponse extends HttpResponse{
+export interface ParliamentSessionHttpResponse extends HttpResponse {
   Dataobject: Array<SingleParliamentSessionHttpResponse>;
 }

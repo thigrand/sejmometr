@@ -1,4 +1,4 @@
-export interface KrsLayerFirmy{
+export interface KrsLayerFirmy {
   id: string;
   nazwa: string;
   udzialy_liczba: string;

@@ -1,4 +1,4 @@
-export interface PublicOrderContractor{
+export interface PublicOrderContractor {
   cena: number;
   id: string;
   krs_id: string;

@@ -1,7 +1,7 @@
-export interface DeputiesLayersListArr{
+export interface DeputiesLayersListArr {
   [index: number]:
     'biura' |
     'krs' |
     'wydatki' |
-    'wyjazdy'
+    'wyjazdy';
 }

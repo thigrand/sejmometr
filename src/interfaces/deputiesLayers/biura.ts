@@ -1,3 +1,3 @@
-export interface DeputiesLayerBiura{
+export interface DeputiesLayerBiura {
 
 }

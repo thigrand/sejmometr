@@ -1,6 +1,6 @@
-export interface FieldsListArr{
+export interface FieldsListArr {
   [index: number]:
-    "details" |
-    "zamowienia_publiczne-kryteria" |
-    "zamowienia_publiczne-wykonawcy"
+    'details' |
+    'zamowienia_publiczne-kryteria' |
+    'zamowienia_publiczne-wykonawcy';
 }
