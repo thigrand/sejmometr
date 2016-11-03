@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 import {HttpService} from "./http";
-import {PublicOrdersFields} from "../interfaces/";
+import {
+  PublicOrderDocumentsHttpResponse,
+  PublicOrdersDataHttpResponse,
+  PublicOrdersFields,
+  SinglePublicOrdersDataHttpResponse,
+} from "../interfaces/";
 
 @Injectable()
 /**
@@ -23,7 +29,7 @@ export class PublicOrdersService {
    *  Other filter options available at https://mojepanstwo.pl/api/zamowienia_publiczne
    * @returns Observable (subscribe to it to receive http response data (interface: PublicOrdersDataHttpResponse))
    */
-  getDataFiltered(filterObj = {}){
+  getDataFiltered(filterObj = {}): Observable<PublicOrdersDataHttpResponse>{
     return this.httpService.getResources('zamowienia_publiczne.json', filterObj);
   }
   /**
@@ -32,7 +38,7 @@ export class PublicOrdersService {
    * @param fields Array of strings with names of additional data you want to get (more info available at https://mojepanstwo.pl/api/zamowienia_publiczne)
    * @returns Observable (subscribe to it to receive http response data (interface: SinglePublicOrdersDataHttpResponse))
    */
-  getSingleData(id: string, fields?: PublicOrdersFields.FieldsListArr){
+  getSingleData(id: string, fields?: PublicOrdersFields.FieldsListArr): Observable<SinglePublicOrdersDataHttpResponse>{
     let fieldsObj = fields ? {fields} : {};
     return this.httpService.getResources(`zamowienia_publiczne/${id}.json`,fieldsObj);
   }
@@ -42,7 +48,7 @@ export class PublicOrdersService {
    * @param isDetailed Set to true if you want to get document detailed info
    * @returns Observable (subscribe to it to receive http response data (interface: PublicOrderDocumentsHttpResponse))
    */
-  getPublicOrderDocuments(id: string, isDetailed: boolean = false){
+  getPublicOrderDocuments(id: string, isDetailed: boolean = false): Observable<PublicOrderDocumentsHttpResponse>{
     let conditions = [];
     conditions['zamowienia_publiczne_dokumenty.parent_id'] = [];
     conditions['zamowienia_publiczne_dokumenty.parent_id'].push(id);
