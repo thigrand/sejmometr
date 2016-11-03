@@ -16,7 +16,21 @@ export class HttpService {
     if(dataObj){
       let keys: Array<string> = Object.keys(dataObj);
       keys.forEach(key => {
-        params.set(key,dataObj[key]);
+        if(Object.prototype.toString.call( dataObj[key] ) === '[object Array]'){
+          for(var arrParamKey in dataObj[key]){
+            let arrParam = dataObj[key][arrParamKey];
+
+            if(Object.prototype.toString.call( arrParam ) === '[object Array]'){
+              arrParam.forEach(nestedArrParam => {
+                params.append(`${key}[${arrParamKey}]`,nestedArrParam);
+              });
+            }else{
+              params.append(`${key}[]`,arrParam);
+            }
+          }
+        }else{
+          params.set(key,dataObj[key]);
+        }
       });
     }
 
