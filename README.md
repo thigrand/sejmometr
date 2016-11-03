@@ -30,3 +30,10 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Angular Material 
+
+[Angular Material2 repo](https://github.com/angular/material2)
+
+[Implementation and samples](https://github.com/angular/material2/blob/master/GETTING_STARTED.md)
+[Documentation](https://github.com/angular/material2/wiki/Design-doc-directory)
