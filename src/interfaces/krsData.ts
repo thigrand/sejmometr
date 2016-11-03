@@ -1,4 +1,17 @@
-export interface krsDataRow{
+import {
+  Dataobject,
+  HttpResponse,
+  KrsLayers
+} from "./";
+
+/*
+  krs_podmioty.forma_prawna_typ_id:
+
+  1 — Organizacje biznesowe
+  2 — Organizacje pozarządowe
+  3 — Samodzielne publiczne zakłady opieki zdrowotnej
+*/
+export interface KrsDataRow{
   'krs_podmioty.adres': string;
   'krs_podmioty.adres_kod_pocztowy': string;
   'krs_podmioty.adres_kraj': string;
@@ -16,7 +29,7 @@ export interface krsDataRow{
   'krs_podmioty.firma': string;
   'krs_podmioty.forma_prawna_id': string;
   'krs_podmioty.forma_prawna_str': string;
-  'krs_podmioty.forma_prawna_typ_id': string;
+  'krs_podmioty.forma_prawna_typ_id': "1" | "2" | "3";
   'krs_podmioty.gmina_id': string;
   'krs_podmioty.gpw_spolka_id': string;
   'krs_podmioty.id': string;
@@ -66,14 +79,31 @@ export interface krsDataRow{
   'krs_podmioty.wykreslony': string;
 }
 
-export interface krsData{
-  dataset: string;
-  global_id: string;
-  id: string;
-  mp_url: string;
-  schema_url: string;
-  score: null;
-  slug: string;
-  url: string;
-  data: krsDataRow
+/*
+  Layers available only when getting only single krs data
+ */
+export interface SingleKrsDataHttpResponse extends Dataobject{
+  data: KrsDataRow;
+  layers?: {
+    channels: null;
+    dataset: null;
+    page: null;
+    subscribers: null;
+    dzialalnosci?: Array<KrsLayers.KrsLayerDzialalnosci>;
+    emisje_akcji?: Array<KrsLayers.KrsLayerEmisjeAkcji>;
+    firmy?: Array<KrsLayers.KrsLayerFirmy>;
+    graph?: Array<KrsLayers.KrsLayerGraph>;
+    jedynyAkcjonariusz?: Array<KrsLayers.KrsLayerJedynyAkcjonariusz>;
+    komitetZalozycielski?: Array<KrsLayers.KrsLayerKomitetZalozycielski>;
+    nadzor?: Array<KrsLayers.KrsLayerNadzor>;
+    oddzialy?: Array<KrsLayers.KrsLayerOddzialy>;
+    prokurenci?: Array<KrsLayers.KrsLayerProkurenci>;
+    reprezentacja?: Array<KrsLayers.KrsLayerReprezentacja>;
+    wspolnicy?: Array<KrsLayers.KrsLayerWspolnicy>;
+  };
 }
+
+export interface KrsDataHttpResponse extends HttpResponse{
+  Dataobject: Array<SingleKrsDataHttpResponse>;
+}
+
