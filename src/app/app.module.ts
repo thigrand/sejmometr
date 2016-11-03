@@ -15,7 +15,7 @@ import {
   ParliamentSpeechService,
   PublicOrdersService,
   SejmometrService
-} from "../providers/";
+} from '../providers/';
 
 @NgModule({
   declarations: [

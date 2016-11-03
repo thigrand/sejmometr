@@ -1,29 +1,27 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController} from 'ionic-angular';
-import {HttpService} from "../../providers/http";
+import {HttpService} from '../../providers/http';
+import {SejmometrService} from '../../providers/sejmometr';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
+  deputiesIndexedSubject: Subject<any>;
   constructor(
     public navCtrl: NavController,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private sejmometrService: SejmometrService
   ) {
   }
 
-  ngOnInit(){
-    // this.httpService.getResources('poslowie.json?limit=500&page=1')
-    //   .subscribe(poslowie => {
-    //     poslowie['Dataobject'].forEach(posel => {
-    //       this.httpService.getResources(`poslowie/${posel.id}.json?layers[]=biura`)
-    //         .subscribe(poselDetails => {
-    //           if(poselDetails.layers.biura && poselDetails.layers.biura.length>0){
-    //             console.log(poselDetails);
-    //           }
-    //         });
-    //     })
-    //   });
+  ngOnInit() {
+    this.sejmometrService.refreshDeputiesIndexedByPoliticalParty();
+    this.deputiesIndexedSubject = this.sejmometrService.deputiesIndexedByPP;
+    this.deputiesIndexedSubject.subscribe(data => {
+      console.log(data);
+    });
   }
 }
