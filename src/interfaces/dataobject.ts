@@ -1,4 +1,4 @@
-export interface Dataobject{
+export interface Dataobject {
   dataset: string;
   global_id: string;
   id: string;

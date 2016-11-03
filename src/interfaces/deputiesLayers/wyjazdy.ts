@@ -1,4 +1,4 @@
-export interface DeputiesLayerWyjazdy{
+export interface DeputiesLayerWyjazdy {
   country_code: string;
   delegacja: string;
   do: string;

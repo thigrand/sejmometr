@@ -1,4 +1,4 @@
-export interface KrsLayerOddzialy{
+export interface KrsLayerOddzialy {
   adres: string;
   nazwa: string;
 }

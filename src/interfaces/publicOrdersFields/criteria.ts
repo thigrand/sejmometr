@@ -1,4 +1,4 @@
-export interface PublicOrderCriteria{
+export interface PublicOrderCriteria {
   nazwa: string;
   punkty: string;
 }

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpService} from "./http";
+import {HttpService} from './http';
 import {
   ParliamentSpeechHttpResponse,
   SingleParliamentSpeechHttpResponse
-} from "../interfaces/";
+} from '../interfaces/';
 
 @Injectable()
 /**
@@ -26,7 +26,7 @@ export class ParliamentSpeechService {
    *  Other filter options available at  https://mojepanstwo.pl/api/sejmometr
    * @returns Observable (subscribe to it to receive http response data (interface: ParliamentSpeechHttpResponse))
    */
-  getParliamentSpeechesDataFiltered(filterObj = {}): Observable<ParliamentSpeechHttpResponse>{
+  getParliamentSpeechesDataFiltered(filterObj = {}): Observable<ParliamentSpeechHttpResponse> {
     return this.httpService.getResources('sejm_wystapienia.json', filterObj);
   }
   /**
@@ -35,8 +35,8 @@ export class ParliamentSpeechService {
    * @param isDetails Set to true if speech detailed info needed
    * @returns Observable (subscribe to it to receive http response data (interface: SingleParliamentSpeechHttpResponse))
    */
-  getSingleParliamentSpeechData(id: string, isDetails: boolean = false): Observable<SingleParliamentSpeechHttpResponse>{
-    let layersObj = isDetails===true ? {
+  getSingleParliamentSpeechData(id: string, isDetails: boolean = false): Observable<SingleParliamentSpeechHttpResponse> {
+    let layersObj = isDetails === true ? {
       layers: [
         'html'
       ]

@@ -4,7 +4,7 @@ import {
   HttpResponse
 } from './';
 
-interface DeputyRow{
+interface DeputyRow {
   'ludzie.id': string;
   'ludzie.nazwa': string;
   'ludzie.slug': string;
@@ -79,7 +79,7 @@ interface DeputyRow{
 /*
  Layers available only when getting only single deputy data
  */
-export interface SingleDeputyDataHttpResponse extends Dataobject{
+export interface SingleDeputyDataHttpResponse extends Dataobject {
   data: DeputyRow;
   layers?: {
     dataset: null;
@@ -87,12 +87,12 @@ export interface SingleDeputyDataHttpResponse extends Dataobject{
     page: null;
     subscribers: null;
     krs?: DeputiesLayers.DeputiesLayerKrs;
-    wydatki? : DeputiesLayers.DeputiesLayerWydatki;
-    wyjazdy? : DeputiesLayers.DeputiesLayerWyjazdy;
-    biura? : DeputiesLayers.DeputiesLayerBiura; // its always empty array so no interface `till data filled
-  }
+    wydatki?: DeputiesLayers.DeputiesLayerWydatki;
+    wyjazdy?: DeputiesLayers.DeputiesLayerWyjazdy;
+    biura?: DeputiesLayers.DeputiesLayerBiura; // its always empty array so no interface `till data filled
+  };
 }
 
-export interface DeputyDataHttpResponse extends HttpResponse{
+export interface DeputyDataHttpResponse extends HttpResponse {
   Dataobject: Array<SingleDeputyDataHttpResponse>;
 }

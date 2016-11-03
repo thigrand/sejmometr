@@ -1,4 +1,4 @@
-export interface KrsLayerWspolnicy{
+export interface KrsLayerWspolnicy {
   data_urodzenia: string|null;
   funkcja: string;
   id: string;

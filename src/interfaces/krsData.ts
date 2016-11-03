@@ -2,7 +2,7 @@ import {
   Dataobject,
   HttpResponse,
   KrsLayers
-} from "./";
+} from './';
 
 /*
   krs_podmioty.forma_prawna_typ_id:
@@ -11,7 +11,7 @@ import {
   2 — Organizacje pozarządowe
   3 — Samodzielne publiczne zakłady opieki zdrowotnej
 */
-export interface KrsDataRow{
+export interface KrsDataRow {
   'krs_podmioty.adres': string;
   'krs_podmioty.adres_kod_pocztowy': string;
   'krs_podmioty.adres_kraj': string;
@@ -29,7 +29,7 @@ export interface KrsDataRow{
   'krs_podmioty.firma': string;
   'krs_podmioty.forma_prawna_id': string;
   'krs_podmioty.forma_prawna_str': string;
-  'krs_podmioty.forma_prawna_typ_id': "1" | "2" | "3";
+  'krs_podmioty.forma_prawna_typ_id': '1' | '2' | '3';
   'krs_podmioty.gmina_id': string;
   'krs_podmioty.gpw_spolka_id': string;
   'krs_podmioty.id': string;
@@ -82,7 +82,7 @@ export interface KrsDataRow{
 /*
   Layers available only when getting only single krs data
  */
-export interface SingleKrsDataHttpResponse extends Dataobject{
+export interface SingleKrsDataHttpResponse extends Dataobject {
   data: KrsDataRow;
   layers?: {
     channels: null;
@@ -103,7 +103,7 @@ export interface SingleKrsDataHttpResponse extends Dataobject{
   };
 }
 
-export interface KrsDataHttpResponse extends HttpResponse{
+export interface KrsDataHttpResponse extends HttpResponse {
   Dataobject: Array<SingleKrsDataHttpResponse>;
 }
 
