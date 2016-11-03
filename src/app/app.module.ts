@@ -7,15 +7,22 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import {HttpService, KrsService} from "../providers/";
-import {PublicOrdersService} from "../providers/publicOrders";
+import {
+  DeputiesService,
+  HttpService,
+  KrsService,
+  ParliamentSessionsService,
+  ParliamentSpeechService,
+  PublicOrdersService,
+  SejmometrService
+} from "../providers/";
 
 @NgModule({
   declarations: [
-    MyApp,
     AboutPage,
     ContactPage,
     HomePage,
+    MyApp,
     TabsPage
   ],
   imports: [
@@ -32,7 +39,11 @@ import {PublicOrdersService} from "../providers/publicOrders";
   providers: [
     HttpService,
     KrsService,
-    PublicOrdersService
+    PublicOrdersService,
+    DeputiesService,
+    ParliamentSessionsService,
+    ParliamentSpeechService,
+    SejmometrService
   ]
 })
 export class AppModule {}
