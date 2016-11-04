@@ -1,5 +1,5 @@
 export class SejmometrCfg {
-  public actualCandence: string = '8';
+  public currentCandence: string = '8';
   public politicalPartiesClubsIds = {
     KUKIZ: '13',
     PIS: '2',

@@ -15,7 +15,6 @@ import {SejmometrCfg} from '../cfg/';
 export class SejmometrService {
   private subscriptions: Array<Subscription> = [];
   private deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
-
   public allDeputies: Array<SingleDeputyDataHttpResponse>;
   public deputiesIndexedByPP: Subject<Array<Array<SingleDeputyDataHttpResponse>>> = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
   /**
@@ -29,22 +28,36 @@ export class SejmometrService {
   ) {
     this.loadDeputiesHttpResponse();
   }
-
+  /**
+   * Get arrays of Deputies indexed by their club_name.
+   * res[club_name] = array(Deputies).
+   * @public
+   * @returns Subject<Array<Array<SingleDeputyDataHttpResponse>>>
+   */
   public getDeputiesIndexedByPP(): Subject<Array<Array<SingleDeputyDataHttpResponse>>> {
     this.ascertainDeputiesAvailable();
     return this.deputiesIndexedByPP;
   }
-
+  /**
+   * Get deputies filtered by club.
+   * @param club_id Id of the club you want to get deputies from
+   * @public
+   * @returns Observable<DeputyDataHttpResponse>
+   */
   public getDeputiesByPP(club_id: string): Observable<DeputyDataHttpResponse> {
     let conditions = [];
-    conditions['poslowie.kadencja'] = [this.sejmometrCfg.actualCandence];
+    conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
     conditions['poslowie.klub_id'] = [club_id];
     return this.deputiesService.getDataFiltered({
       conditions,
       limit: '500'
     });
   }
-
+  /**
+   * Check if deputies data available.
+   * @param isReset Set to true to force Deputies data reset.
+   * @private
+   */
   private ascertainDeputiesAvailable(isReset: boolean = false) {
     if (!this.allDeputies || isReset === true) {
       this.resetArrays();
@@ -54,7 +67,10 @@ export class SejmometrService {
       });
     }
   }
-
+  /**
+   * Empty all deputies data.
+   * @private
+   */
   private resetArrays() {
     this.allDeputies = [];
     this.deputiesIndexedByPP.next([]);
@@ -62,7 +78,10 @@ export class SejmometrService {
       this.subscriptions['deputiesHttpResponse'].unsubscribe();
     }
   }
-
+  /**
+   * Reindex allDeputies data by club_name and save it to deputiesIndexedByPP.
+   * @private
+   */
   private refreshDeputiesIndexedByPP() {
     let res = [];
     this.allDeputies.forEach(singleDeputy => {
@@ -75,10 +94,13 @@ export class SejmometrService {
       res
     );
   }
-
+  /**
+   * Init deputiesHttpResponse Observable (subscribe to it to get all deputies from current cadence)
+   * @private
+   */
   private loadDeputiesHttpResponse() {
     let conditions = [];
-    conditions['poslowie.kadencja'] = [this.sejmometrCfg.actualCandence];
+    conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
     this.deputiesHttpResponse = this.deputiesService.getDataFiltered({
       conditions,
       limit: '500'
