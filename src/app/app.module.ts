@@ -16,6 +16,7 @@ import {
   PublicOrdersService,
   SejmometrService
 } from '../providers/';
+import {SejmometrCfg} from '../cfg/';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {
     DeputiesService,
     ParliamentSessionsService,
     ParliamentSpeechService,
-    SejmometrService
+    SejmometrService,
+    SejmometrCfg
   ]
 })
 export class AppModule {}
