@@ -62,7 +62,9 @@ export class SejmometrService {
     if (!this.allDeputies || isReset === true) {
       this.resetArrays();
       this.subscriptions['deputiesHttpResponse'] = this.deputiesHttpResponse.subscribe(deputyData => {
-        this.allDeputies = deputyData.Dataobject;
+        this.allDeputies = deputyData.Dataobject.filter(singleDeputy => {
+          return singleDeputy.data['poslowie.mandat_wygasl']  === '0';
+        });
         this.refreshDeputiesIndexedByPP();
       });
     }
@@ -85,10 +87,23 @@ export class SejmometrService {
   private refreshDeputiesIndexedByPP() {
     let res = [];
     this.allDeputies.forEach(singleDeputy => {
-      if (!res[singleDeputy.data['sejm_kluby.nazwa']]) {
-        res[singleDeputy.data['sejm_kluby.nazwa']] = [];
+      let index = res.map(function(obj, index) {
+        if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
+          return index;
+        }
+      }).filter(isFinite);
+      if (index.length === 0) {
+        res.push({
+          club_id: singleDeputy.data['sejm_kluby.id'],
+          club_name: singleDeputy.data['sejm_kluby.nazwa'],
+          deputies: [singleDeputy]
+        });
+      } else {
+        res[index[0]].deputies.push(singleDeputy);
       }
-      res[singleDeputy.data['sejm_kluby.nazwa']].push(singleDeputy);
+    });
+    res.sort((itemA, itemB) => {
+      return itemB.deputies.length - itemA.deputies.length;
     });
     this.deputiesIndexedByPP.next(
       res
