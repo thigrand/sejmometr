@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import {NgModule} from '@angular/core';
+import {IonicApp, IonicModule} from 'ionic-angular';
+import {MyApp} from './app.component';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import {SejmometrCfg} from '../cfg/';
 import {
   DeputiesService,
   HttpService,
@@ -16,15 +13,13 @@ import {
   PublicOrdersService,
   SejmometrService
 } from '../providers/';
-import {SejmometrCfg} from '../cfg/';
+import * as components from '../components/';
 
 @NgModule({
   declarations: [
-    AboutPage,
-    ContactPage,
-    HomePage,
     MyApp,
-    TabsPage
+    components.layout.TabsPage,
+    components.pages.DashboardPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -32,10 +27,8 @@ import {SejmometrCfg} from '../cfg/';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage
+    components.layout.TabsPage,
+    components.pages.DashboardPage
   ],
   providers: [
     HttpService,
