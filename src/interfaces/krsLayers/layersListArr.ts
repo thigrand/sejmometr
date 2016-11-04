@@ -1,4 +1,4 @@
-export interface KrsLayersListArr{
+export interface KrsLayersListArr {
   [index: number]:
     'dzialalnosci' |
     'emisje_akcji' |
@@ -10,5 +10,5 @@ export interface KrsLayersListArr{
     'oddzialy' |
     'prokurenci' |
     'reprezentacja' |
-    'wspolnicy'
+    'wspolnicy';
 }

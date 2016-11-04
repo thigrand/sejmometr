@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpService} from "./http";
+import {HttpService} from './http';
 import {
   PublicOrderDocumentsHttpResponse,
   PublicOrdersDataHttpResponse,
   PublicOrdersFields,
   SinglePublicOrdersDataHttpResponse,
-} from "../interfaces/";
+} from '../interfaces/';
 
 @Injectable()
 /**
@@ -29,7 +29,7 @@ export class PublicOrdersService {
    *  Other filter options available at https://mojepanstwo.pl/api/zamowienia_publiczne
    * @returns Observable (subscribe to it to receive http response data (interface: PublicOrdersDataHttpResponse))
    */
-  getDataFiltered(filterObj = {}): Observable<PublicOrdersDataHttpResponse>{
+  getDataFiltered(filterObj = {}): Observable<PublicOrdersDataHttpResponse> {
     return this.httpService.getResources('zamowienia_publiczne.json', filterObj);
   }
   /**
@@ -38,9 +38,9 @@ export class PublicOrdersService {
    * @param fields Array of strings with names of additional data you want to get (more info available at https://mojepanstwo.pl/api/zamowienia_publiczne)
    * @returns Observable (subscribe to it to receive http response data (interface: SinglePublicOrdersDataHttpResponse))
    */
-  getSingleData(id: string, fields?: PublicOrdersFields.FieldsListArr): Observable<SinglePublicOrdersDataHttpResponse>{
+  getSingleData(id: string, fields?: PublicOrdersFields.FieldsListArr): Observable<SinglePublicOrdersDataHttpResponse> {
     let fieldsObj = fields ? {fields} : {};
-    return this.httpService.getResources(`zamowienia_publiczne/${id}.json`,fieldsObj);
+    return this.httpService.getResources(`zamowienia_publiczne/${id}.json`, fieldsObj);
   }
   /**
    * Get single public order documents data (array)
@@ -48,7 +48,7 @@ export class PublicOrdersService {
    * @param isDetailed Set to true if you want to get document detailed info
    * @returns Observable (subscribe to it to receive http response data (interface: PublicOrderDocumentsHttpResponse))
    */
-  getPublicOrderDocuments(id: string, isDetailed: boolean = false): Observable<PublicOrderDocumentsHttpResponse>{
+  getPublicOrderDocuments(id: string, isDetailed: boolean = false): Observable<PublicOrderDocumentsHttpResponse> {
     let conditions = [];
     conditions['zamowienia_publiczne_dokumenty.parent_id'] = [];
     conditions['zamowienia_publiczne_dokumenty.parent_id'].push(id);
@@ -56,7 +56,7 @@ export class PublicOrdersService {
     let httpObj = {
       conditions
     };
-    if(isDetailed===true){
+    if (isDetailed === true) {
       httpObj['fields'] = ['details'];
     }
     return this.httpService.getResources(`zamowienia_publiczne_dokumenty.json`, httpObj);

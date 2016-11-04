@@ -1,9 +1,9 @@
 import {
   Dataobject,
   HttpResponse
-} from "./";
+} from './';
 
-interface PublicOrderDocumentRowWykonawca{
+interface PublicOrderDocumentRowWykonawca {
   cena: number;
   id: string;
   krs_id: string;
@@ -13,14 +13,14 @@ interface PublicOrderDocumentRowWykonawca{
   walute: string;
 }
 
-interface PublicOrderWykonawca{
+interface PublicOrderWykonawca {
   id: string;
   krs_id: string;
   miejscowosc: string;
   nazwa: string;
 }
 
-interface PublicOrderDocumentDetailsCzesciWykonawcy{
+interface PublicOrderDocumentDetailsCzesciWykonawcy {
   cena: string;
   cena_max: string;
   data_zam: string;
@@ -34,7 +34,7 @@ interface PublicOrderDocumentDetailsCzesciWykonawcy{
   wykonawcy: Array<PublicOrderWykonawca>;
 }
 
-interface PublicOrderDocumentDetails{
+interface PublicOrderDocumentDetails {
   'czesci-wykonawcy'?: PublicOrderDocumentDetailsCzesciWykonawcy;
   info?: string;
   inne_dokumenty?: string;
@@ -50,7 +50,7 @@ interface PublicOrderDocumentDetails{
   zmieniona_umowa?: string;
 }
 
-interface PublicOrderDocumentsRow{
+interface PublicOrderDocumentsRow {
   'zamowienia_publiczne_dokumenty.child': string;
   'zamowienia_publiczne_dokumenty.childsCount': string;
   'zamowienia_publiczne_dokumenty.cpv1c': string;
@@ -94,11 +94,11 @@ interface PublicOrderDocumentsRow{
 /*
   Details available only when using fields[]=details in http request
  */
-export interface SinglePublicOrderDocumentHttpResponse extends Dataobject{
+export interface SinglePublicOrderDocumentHttpResponse extends Dataobject {
   data: PublicOrderDocumentsRow;
   details?: PublicOrderDocumentDetails;
 }
 
-export interface PublicOrderDocumentsHttpResponse extends HttpResponse{
+export interface PublicOrderDocumentsHttpResponse extends HttpResponse {
   Dataobject: Array<SinglePublicOrderDocumentHttpResponse>;
 }

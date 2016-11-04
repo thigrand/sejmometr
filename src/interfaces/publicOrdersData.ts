@@ -4,7 +4,7 @@ import {
   PublicOrdersFields
 } from './';
 
-interface PublicOrdersRow{
+interface PublicOrdersRow {
   'zamowienia_publiczne.akcept': string;
   'zamowienia_publiczne.aukcja': string;
   'zamowienia_publiczne.czas': string;
@@ -85,13 +85,13 @@ interface PublicOrdersRow{
 /*
  Fields data available only when getting only single zamowienia_publiczne data
  */
-export interface SinglePublicOrdersDataHttpResponse extends Dataobject{
+export interface SinglePublicOrdersDataHttpResponse extends Dataobject {
   data: PublicOrdersRow;
   // fields data
   'zamowienia_publiczne-kryteria'?: Array<PublicOrdersFields.PublicOrderCriteria>;
   'zamowienia_publiczne-wykonawcy'?: Array<PublicOrdersFields.PublicOrderContractor>;
 }
 
-export interface PublicOrdersDataHttpResponse extends HttpResponse{
-  Dataobject: Array<SinglePublicOrdersDataHttpResponse>
+export interface PublicOrdersDataHttpResponse extends HttpResponse {
+  Dataobject: Array<SinglePublicOrdersDataHttpResponse>;
 }

@@ -41,31 +41,31 @@ export class HttpService {
    * @param queryObj Object which will be converted to URL query string
    * @returns Observable
    */
-  getResources(method: string, queryObj?: Object): Observable<any>{
+  getResources(method: string, queryObj?: Object): Observable<any> {
     let params: URLSearchParams = new URLSearchParams();
 
-    if(queryObj){
+    if (queryObj) {
       let keys: Array<string> = Object.keys(queryObj);
       keys.forEach(key => {
-        if(Object.prototype.toString.call( queryObj[key] ) === '[object Array]'){
-          for(var arrParamKey in queryObj[key]){
+        if (Object.prototype.toString.call( queryObj[key] ) === '[object Array]') {
+          for (let arrParamKey in queryObj[key]) {
             let arrParam = queryObj[key][arrParamKey];
 
-            if(Object.prototype.toString.call( arrParam ) === '[object Array]'){
+            if (Object.prototype.toString.call( arrParam ) === '[object Array]') {
               arrParam.forEach(nestedArrParam => {
-                params.append(`${key}[${arrParamKey}]`,nestedArrParam);
+                params.append(`${key}[${arrParamKey}]`, nestedArrParam);
               });
-            }else{
-              params.append(`${key}[]`,arrParam);
+            } else {
+              params.append(`${key}[]`, arrParam);
             }
           }
-        }else{
-          params.set(key,queryObj[key]);
+        } else {
+          params.set(key, queryObj[key]);
         }
       });
     }
 
-    return this.http.get(`${this.apiUrl}${method}`,{
+    return this.http.get(`${this.apiUrl}${method}`, {
       search: params
     })
       .map(this.extractData)
@@ -76,7 +76,7 @@ export class HttpService {
    * @param res Response JSON string
    * @returns Object
    */
-  private extractData(res: Response){
+  private extractData(res: Response) {
     let body = res.json();
     return body || {};
   }
@@ -85,7 +85,7 @@ export class HttpService {
    * @param error Response error object
    * @returns Observable
    */
-  private handleError(error: any){
+  private handleError(error: any) {
     let errMsg = (error.message) ? error.message : error.status ? `${error.status} - ${error.statusText}` : `Server error`;
     return Observable.throw(errMsg);
   }

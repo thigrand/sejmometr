@@ -1,4 +1,4 @@
-export interface KrsLayerProkurenci{
+export interface KrsLayerProkurenci {
   data_urodzenia: string;
   funkcja: string;
   nazwa: string;

@@ -6,7 +6,7 @@ import {
   ParliamentSessionsDaysHttpResponse,
   SingleParliamentSessionHttpResponse,
   SingleParliamentSessionsDayHttpResponse
-} from "../interfaces/";
+} from '../interfaces/';
 
 @Injectable()
 /**
@@ -28,7 +28,7 @@ export class ParliamentSessionsService {
    *  Other filter options available at  https://mojepanstwo.pl/api/sejmometr
    * @returns Observable
    */
-  getSessionDataFiltered(filterObj = {}): Observable<ParliamentSessionHttpResponse>{
+  getSessionDataFiltered(filterObj = {}): Observable<ParliamentSessionHttpResponse> {
     return this.httpService.getResources('sejm_posiedzenia.json', filterObj);
   }
   /**
@@ -36,7 +36,7 @@ export class ParliamentSessionsService {
    * @param id The id of parliament session data you want to get
    * @returns Observable
    */
-  getSingleSessionData(id: string): Observable<SingleParliamentSessionHttpResponse>{
+  getSingleSessionData(id: string): Observable<SingleParliamentSessionHttpResponse> {
     return this.httpService.getResources(`sejm_posiedzenia/${id}.json`);
   }
   /**
@@ -46,7 +46,7 @@ export class ParliamentSessionsService {
    *  Other filter options available at  https://mojepanstwo.pl/api/sejmometr
    * @returns Observable
    */
-  getSessionsDaysData(filterObj = {}): Observable<ParliamentSessionsDaysHttpResponse>{
+  getSessionsDaysData(filterObj = {}): Observable<ParliamentSessionsDaysHttpResponse> {
     return this.httpService.getResources(`sejm_posiedzenia_dni.json`, filterObj);
   }
   /**
@@ -54,7 +54,7 @@ export class ParliamentSessionsService {
    * @param id The id of parliament session day data you want to get
    * @returns Observable
    */
-  getSingleSessionDaysData(id: string): Observable<SingleParliamentSessionsDayHttpResponse>{
+  getSingleSessionDaysData(id: string): Observable<SingleParliamentSessionsDayHttpResponse> {
     return this.httpService.getResources(`sejm_posiedzenia_dni/${id}.json`);
   }
 }
