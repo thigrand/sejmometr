@@ -12,6 +12,17 @@ import { TileComponent } from './components/tile/tile.component';
 import { ListComponent } from './components/list/list.component';
 import { ChartComponent } from './components/chart/chart.component';
 
+import {
+  DeputiesService,
+  HttpService,
+  KrsService,
+  ParliamentSessionsService,
+  ParliamentSpeechService,
+  PublicOrdersService,
+  SejmometrService
+} from '../providers/';
+import {SejmometrCfg} from '../cfg/';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +39,16 @@ import { ChartComponent } from './components/chart/chart.component';
     HttpModule,
     MaterialModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    HttpService,
+    KrsService,
+    PublicOrdersService,
+    DeputiesService,
+    ParliamentSessionsService,
+    ParliamentSpeechService,
+    SejmometrService,
+    SejmometrCfg
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

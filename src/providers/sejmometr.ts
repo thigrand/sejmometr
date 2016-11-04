@@ -101,6 +101,7 @@ export class SejmometrService {
   private loadDeputiesHttpResponse() {
     let conditions = [];
     conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
+    // conditions['poslowie.mandat_wygasl'] = [0];
     this.deputiesHttpResponse = this.deputiesService.getDataFiltered({
       conditions,
       limit: '500'
