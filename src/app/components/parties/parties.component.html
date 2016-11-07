@@ -1,8 +1,3 @@
 <div class="Parties">
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
+  <app-tile *ngFor="let party of parties" [amount]="party.amount" [name]="party.club_name" [img]="party.img"></app-tile>
 </div>

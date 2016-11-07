@@ -87,6 +87,9 @@ export class SejmometrService {
   private refreshDeputiesIndexedByPP() {
     let res = [];
     this.allDeputies.forEach(singleDeputy => {
+      if(singleDeputy.data['sejm_kluby.id'] === ""){
+        singleDeputy.data['sejm_kluby.id'] = "7";
+      }
       let index = res.map(function(obj, index) {
         if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
           return index;
