@@ -1,63 +1,14 @@
 <ion-content padding>
   dashboard page
-
-  <ion-grid>
-    <ion-row>
-      <ion-col *ngFor="let listItem of parties">
-        party on!
-      </ion-col>
-    </ion-row>
-    <ion-row responsive-md>
-      <ion-col>
-        <ion-row responsive-sm>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col>
-        <ion-row responsive-sm>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <img src="assets/PPlogos/pis.jpg"/>
-              <div class="card-title">São Paulo</div>
-              <div class="card-subtitle">41 Listings</div>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div class="container">
+    <div class="row">
+      <div class="col col-xs-12 col-sm-6 col-sm-4 col-lg-3" *ngFor="let party of parties;">
+        <ion-card>
+          <img src="assets/PPlogos/pis.jpg"/>
+          <div class="card-title">{{party.deputies.length}}</div>
+          <div class="card-subtitle">{{party.club_name}}</div>
+        </ion-card>
+      </div>
+    </div>
+  </div>
 </ion-content>

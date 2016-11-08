@@ -1,11 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {Platform} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 import {TabsPage} from '../components/layout/tabs/tabs';
 
 
 @Component({
-  template: `<ion-nav [root]="rootPage"></ion-nav>`
+  template: `<ion-nav [root]="rootPage"></ion-nav>`,
+  styleUrls: [
+    '../assets/css/bootstrap-grid.css'
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyApp {
   rootPage = TabsPage;
