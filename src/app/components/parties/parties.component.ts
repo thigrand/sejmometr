@@ -34,7 +34,7 @@ export class PartiesComponent implements OnInit {
         partyObj.img = "psl.png";
         break;
       default:
-        partyObj.img = "false";
+        partyObj.img = "niezrzeszeni.png";
         break;
     }
     this.parties.push(partyObj);
