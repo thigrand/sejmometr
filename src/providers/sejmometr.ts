@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 import {
-  DeputyDataHttpResponse,
   SingleDeputyDataHttpResponse
 } from '../interfaces/';
 import {DeputiesService} from './deputies';
 import {SejmometrCfg} from '../cfg/';
+import {SejmometrSubjectsObj} from '../interfaces/sejmometrProvider';
 
 @Injectable()
 /**
@@ -30,11 +30,7 @@ export class SejmometrService {
     'poslowie.wartosc_uposazenia_pln',
     'poslowie.wartosc_wyjazdow'
   ];
-  private subscriptions: Array<Subscription> = [];
-  private deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
-  public allDeputies: Array<SingleDeputyDataHttpResponse>;
-  public deputiesIndexedByPP: Subject<Array<Array<SingleDeputyDataHttpResponse>>> = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
-  public mostExpensiveDeputies: Subject<Array<any>> = new Subject<Array<any>>();
+  private subjects: SejmometrSubjectsObj = <SejmometrSubjectsObj>{};
   /**
    * @constructor
    * @param deputiesService DeputiesService provider
@@ -43,130 +39,39 @@ export class SejmometrService {
   constructor(
     private deputiesService: DeputiesService,
     private sejmometrCfg: SejmometrCfg
-  ) {
-    this.loadDeputiesHttpResponse();
-  }
-  /**
-   * Get arrays of Deputies indexed by their club_name.
-   * res[club_name] = array(Deputies).
-   * @public
-   * @returns Subject<Array<Array<SingleDeputyDataHttpResponse>>>
-   */
-  public getDeputiesIndexedByPP(): Subject<Array<Array<SingleDeputyDataHttpResponse>>> {
-    this.ascertainDeputiesAvailable();
-    return this.deputiesIndexedByPP;
-  }
-  /**
-   * Get deputies filtered by club.
-   * @param club_id Id of the club you want to get deputies from
-   * @public
-   * @returns Observable<DeputyDataHttpResponse>
-   */
-  public getDeputiesByPP(club_id: string): Observable<DeputyDataHttpResponse> {
-    let conditions = [];
-    conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
-    conditions['poslowie.klub_id'] = [club_id];
-    return this.deputiesService.getDataFiltered({
-      conditions,
-      limit: '500'
-    });
-  }
-  public getTopSpendingDeputies(): Subject<Array<any>> {
-    this.ascertainDeputiesAvailable();
-    return this.mostExpensiveDeputies;
-  }
-  /**
-   * Check if deputies data available.
-   * @param isReset Set to true to force Deputies data reset.
-   * @private
-   */
-  private ascertainDeputiesAvailable(isReset: boolean = false) {
-    if (!this.allDeputies || isReset === true) {
-      this.resetArrays();
-      this.subscriptions['deputiesHttpResponse'] = this.deputiesHttpResponse.subscribe(deputyData => {
-        this.allDeputies = deputyData.Dataobject.filter(singleDeputy => {
+  ) {}
+
+  public getSubject(subjectName: string) {
+    if (subjectName === 'allDeputies' && !this.subjects[subjectName]) {
+      this.subjects[subjectName] = new Subject<Array<SingleDeputyDataHttpResponse>>();
+      // init - populate deputies
+      this.getSubject('deputiesHttpResponse').subscribe(deputyData => {
+        this.subjects[subjectName].next(deputyData.Dataobject.filter(singleDeputy => {
           return singleDeputy.data['poslowie.mandat_wygasl']  === '0';
-        });
-        this.refreshDeputiesIndexedByPP();
-        this.refreshMostExpensiveDeputies(5);
+        }));
       });
     }
-  }
-  /**
-   * Empty all deputies data.
-   * @private
-   */
-  private resetArrays() {
-    this.allDeputies = [];
-    this.deputiesIndexedByPP.next([]);
-    this.mostExpensiveDeputies.next([]);
-    if (this.subscriptions['deputiesHttpResponse']) {
-      this.subscriptions['deputiesHttpResponse'].unsubscribe();
+    if (subjectName === 'deputiesHttpResponse' && !this.subjects[subjectName]) {
+      let conditions = [];
+      conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
+      this.subjects[subjectName] = this.deputiesService.getDataFiltered({
+        conditions,
+        limit: '500'
+      });
     }
-  }
-  /**
-   * Reindex allDeputies data by club_name and save it to deputiesIndexedByPP.
-   * @private
-   */
-  private refreshDeputiesIndexedByPP() {
-    let res = [];
-    this.allDeputies.forEach(singleDeputy => {
-      if (singleDeputy.data['sejm_kluby.id'] === '') {
-        singleDeputy.data['sejm_kluby.id'] = '7';
-      }
-      let index = res.map(function(obj, index) {
-        if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
-          return index;
-        }
-      }).filter(isFinite);
-      if (index.length === 0) {
-        res.push({
-          club_id: singleDeputy.data['sejm_kluby.id'],
-          club_name: singleDeputy.data['sejm_kluby.nazwa'],
-          deputies: [singleDeputy]
-        });
-      } else {
-        res[index[0]].deputies.push(singleDeputy);
-      }
-    });
-    res.sort((itemA, itemB) => {
-      return itemB.deputies.length - itemA.deputies.length;
-    });
-    this.deputiesIndexedByPP.next(
-      res
-    );
+    if (subjectName === 'deputiesIndexedByPP' && !this.subjects[subjectName]) {
+      this.subjects[subjectName] = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
+      this.refreshDeputiesIndexedByPP();
+    }
+    if (subjectName === 'mostExpensiveDeputies' && !this.subjects[subjectName]) {
+      this.subjects[subjectName] = new Subject<Array<any>>();
+      this.refreshMostExpensiveDeputies();
+    }
+
+    return this.subjects[subjectName];
   }
 
-  private refreshMostExpensiveDeputies(howManyDeputies: number) {
-    let deputies = this.allDeputies.slice();
-    deputies.sort((valA: SingleDeputyDataHttpResponse, valB: SingleDeputyDataHttpResponse) => {
-      return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
-    });
-
-    let topSpending = deputies.slice(0, howManyDeputies);
-    let res = topSpending.map(deputy => {
-      return {
-        name: deputy.data['ludzie.nazwa'],
-        club_id: deputy.data['sejm_kluby.id'],
-        club_name: deputy.data['sejm_kluby.nazwa'],
-        spent: this.sumDeputyExpenses(deputy).toFixed(2)
-      };
-    });
-    this.mostExpensiveDeputies.next(res);
-  }
-  /**
-   * Init deputiesHttpResponse Observable (subscribe to it to get all deputies from current cadence)
-   * @private
-   */
-  private loadDeputiesHttpResponse() {
-    let conditions = [];
-    conditions['poslowie.kadencja'] = [this.sejmometrCfg.currentCandence];
-    this.deputiesHttpResponse = this.deputiesService.getDataFiltered({
-      conditions,
-      limit: '500'
-    });
-  }
-  private sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
+  public sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
     let res = 0;
     this.deputyExpensesArr.forEach(expenseIndex => {
       if (!isNaN(parseFloat(deputy.data[expenseIndex])) && isFinite(deputy.data[expenseIndex])) {
@@ -174,5 +79,57 @@ export class SejmometrService {
       }
     });
     return res;
+  }
+  /**
+   * Reindex allDeputies data by club_name and save it to deputiesIndexedByPP.
+   * @private
+   */
+  private refreshDeputiesIndexedByPP() {
+    this.getSubject('allDeputies').subscribe(deputies => {
+      let res = [];
+      deputies.forEach(singleDeputy => {
+        if (singleDeputy.data['sejm_kluby.id'] === '') {
+          singleDeputy.data['sejm_kluby.id'] = '7';
+        }
+        let index = res.map(function(obj, index) {
+          if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
+            return index;
+          }
+        }).filter(isFinite);
+        if (index.length === 0) {
+          res.push({
+            club_id: singleDeputy.data['sejm_kluby.id'],
+            club_name: singleDeputy.data['sejm_kluby.nazwa'],
+            deputies: [singleDeputy]
+          });
+        } else {
+          res[index[0]].deputies.push(singleDeputy);
+        }
+      });
+
+      res.sort((itemA, itemB) => {
+        return itemB.deputies.length - itemA.deputies.length;
+      });
+
+      this.getSubject('deputiesIndexedByPP').next(
+        res
+      );
+    });
+  }
+  private refreshMostExpensiveDeputies() {
+    this.getSubject('allDeputies').subscribe(allDeputies => {
+      let deputies = allDeputies.slice();
+      let res = deputies.sort((valA: SingleDeputyDataHttpResponse, valB: SingleDeputyDataHttpResponse) => {
+        return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
+      }).map(deputy => {
+        return {
+          name: deputy.data['ludzie.nazwa'],
+          club_id: deputy.data['sejm_kluby.id'],
+          club_name: deputy.data['sejm_kluby.nazwa'],
+          spent: this.sumDeputyExpenses(deputy).toFixed(2)
+        };
+      });
+      this.getSubject('mostExpensiveDeputies').next(res);
+    });
   }
 }
