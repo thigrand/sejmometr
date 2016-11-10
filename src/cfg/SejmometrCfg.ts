@@ -1,32 +1,38 @@
 export class SejmometrCfg {
   public currentCandence: string = '8';
   public politicalPartiesClubsData = {
-    KUKIZ: {
+    '13': {
       club_id: '13',
-      img: ''
+      club_name: 'Kukiz\'15',
+      img: 'assets/PPlogos/kukiz.png'
     },
-    PIS: {
+    '2': {
       club_id: '2',
-      img: ''
+      club_name: 'Prawo i Sprawiedliwość',
+      img: 'assets/PPlogos/pis.jpg'
     },
-    PSL: {
+    '3': {
       club_id: '3',
-      img: ''
+      club_name: 'Polskie Stronnictwo Ludowe',
+      img: 'assets/PPlogos/psl.jpg'
     },
-    PO: {
+    '1': {
       club_id: '1',
-      img: ''
+      club_name: 'Platforma Obywatelska',
+      img: 'assets/PPlogos/po.jpg'
     },
-    NOWOCZESNA: {
+    '14': {
       club_id: '14',
-      img: ''
+      club_name: 'Nowoczesna',
+      img: 'assets/PPlogos/nowoczesna.png'
     },
-    NIEZRZESZENI: {
+    '7': {
       club_id: '7',
+      club_name: 'Niezrzeszeni',
       img: ''
     },
     BRAK: {
-      club_id: '0',
+      club_id: '',
       img: ''
     }
   };

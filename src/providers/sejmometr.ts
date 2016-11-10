@@ -13,10 +13,28 @@ import {SejmometrCfg} from '../cfg/';
  * @class SejmometrService
  */
 export class SejmometrService {
+  private deputyExpensesArr: Array<string> = [
+    'poslowie.wartosc_biuro_biuro',
+    'poslowie.wartosc_biuro_ekspertyzy',
+    'poslowie.wartosc_biuro_inne',
+    'poslowie.wartosc_biuro_materialy_biurowe',
+    'poslowie.wartosc_biuro_podroze_pracownikow',
+    'poslowie.wartosc_biuro_przejazdy',
+    'poslowie.wartosc_biuro_spotkania',
+    'poslowie.wartosc_biuro_srodki_trwale',
+    'poslowie.wartosc_biuro_taksowki',
+    'poslowie.wartosc_biuro_telekomunikacja',
+    'poslowie.wartosc_biuro_wynagrodzenia_pracownikow',
+    'poslowie.wartosc_biuro_zlecenia',
+    'poslowie.wartosc_refundacja_kwater_pln',
+    'poslowie.wartosc_uposazenia_pln',
+    'poslowie.wartosc_wyjazdow'
+  ];
   private subscriptions: Array<Subscription> = [];
   private deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
   public allDeputies: Array<SingleDeputyDataHttpResponse>;
   public deputiesIndexedByPP: Subject<Array<Array<SingleDeputyDataHttpResponse>>> = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
+  public mostExpensiveDeputies: Subject<Array<any>> = new Subject<Array<any>>();
   /**
    * @constructor
    * @param deputiesService DeputiesService provider
@@ -53,6 +71,10 @@ export class SejmometrService {
       limit: '500'
     });
   }
+  public getTopSpendingDeputies(): Subject<Array<any>> {
+    this.ascertainDeputiesAvailable();
+    return this.mostExpensiveDeputies;
+  }
   /**
    * Check if deputies data available.
    * @param isReset Set to true to force Deputies data reset.
@@ -66,6 +88,7 @@ export class SejmometrService {
           return singleDeputy.data['poslowie.mandat_wygasl']  === '0';
         });
         this.refreshDeputiesIndexedByPP();
+        this.refreshMostExpensiveDeputies(5);
       });
     }
   }
@@ -76,6 +99,7 @@ export class SejmometrService {
   private resetArrays() {
     this.allDeputies = [];
     this.deputiesIndexedByPP.next([]);
+    this.mostExpensiveDeputies.next([]);
     if (this.subscriptions['deputiesHttpResponse']) {
       this.subscriptions['deputiesHttpResponse'].unsubscribe();
     }
@@ -87,6 +111,9 @@ export class SejmometrService {
   private refreshDeputiesIndexedByPP() {
     let res = [];
     this.allDeputies.forEach(singleDeputy => {
+      if (singleDeputy.data['sejm_kluby.id'] === '') {
+        singleDeputy.data['sejm_kluby.id'] = '7';
+      }
       let index = res.map(function(obj, index) {
         if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
           return index;
@@ -109,6 +136,24 @@ export class SejmometrService {
       res
     );
   }
+
+  private refreshMostExpensiveDeputies(howManyDeputies: number) {
+    let deputies = this.allDeputies.slice();
+    deputies.sort((valA: SingleDeputyDataHttpResponse, valB: SingleDeputyDataHttpResponse) => {
+      return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
+    });
+
+    let topSpending = deputies.slice(0, howManyDeputies);
+    let res = topSpending.map(deputy => {
+      return {
+        name: deputy.data['ludzie.nazwa'],
+        club_id: deputy.data['sejm_kluby.id'],
+        club_name: deputy.data['sejm_kluby.nazwa'],
+        spent: this.sumDeputyExpenses(deputy).toFixed(2)
+      };
+    });
+    this.mostExpensiveDeputies.next(res);
+  }
   /**
    * Init deputiesHttpResponse Observable (subscribe to it to get all deputies from current cadence)
    * @private
@@ -120,5 +165,14 @@ export class SejmometrService {
       conditions,
       limit: '500'
     });
+  }
+  private sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
+    let res = 0;
+    this.deputyExpensesArr.forEach(expenseIndex => {
+      if (!isNaN(parseFloat(deputy.data[expenseIndex])) && isFinite(deputy.data[expenseIndex])) {
+        res += deputy.data[expenseIndex];
+      }
+    });
+    return res;
   }
 }
