@@ -14,7 +14,7 @@ import {SejmometrCfg} from '../cfg/';
  */
 export class SejmometrService {
   private subscriptions: Array<Subscription> = [];
-  private deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
+  public deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
   public allDeputies: Array<SingleDeputyDataHttpResponse>;
   public deputiesIndexedByPP: Subject<Array<Array<SingleDeputyDataHttpResponse>>> = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
   /**
