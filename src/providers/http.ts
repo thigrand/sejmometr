@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   Http,
   Response,
-  URLSearchParams, Headers
+  URLSearchParams
 } from '@angular/http';
 import {Observable} from 'rxjs';
 

@@ -5,7 +5,7 @@ import {
 } from '../interfaces/';
 import {DeputiesService} from './deputies';
 import {SejmometrCfg} from '../cfg/';
-import {SejmometrSubjectsObj} from '../interfaces/sejmometrProvider';
+import {SejmometrSubjectsObj, DeputyExpenseArrayItem} from '../interfaces/sejmometrProvider';
 
 @Injectable()
 /**
@@ -64,7 +64,7 @@ export class SejmometrService {
       this.refreshDeputiesIndexedByPP();
     }
     if (subjectName === 'mostExpensiveDeputies' && !this.subjects[subjectName]) {
-      this.subjects[subjectName] = new Subject<Array<any>>();
+      this.subjects[subjectName] = new Subject<Array<DeputyExpenseArrayItem>>();
       this.refreshMostExpensiveDeputies();
     }
 
