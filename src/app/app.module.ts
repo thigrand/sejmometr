@@ -12,6 +12,8 @@ import { TileComponent } from './components/tile/tile.component';
 import { ListComponent } from './components/list/list.component';
 import { ChartComponent } from './components/chart/chart.component';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 import {
   DeputiesService,
   HttpService,
@@ -22,6 +24,7 @@ import {
   SejmometrService
 } from '../providers/';
 import {SejmometrCfg} from '../cfg/';
+import { ChartDirective } from './directives/chart.directive';
 
 @NgModule({
   declarations: [
@@ -31,13 +34,15 @@ import {SejmometrCfg} from '../cfg/';
     PartiesComponent,
     TileComponent,
     ListComponent,
-    ChartComponent
+    ChartComponent,
+    ChartDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot()
+    MaterialModule.forRoot(),
+    ChartsModule
   ],
   providers: [
     HttpService,

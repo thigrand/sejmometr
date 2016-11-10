@@ -1,3 +1,11 @@
-<p>
-  chart works!
-</p>
+<div class="Chart">
+  {{pieChartLabels}}
+  {{pieChartData}}
+  {{pieChartType}}
+  <canvas baseChart
+          class="Chart-graph"
+          [chartType]="pieChartType"
+
+          [data]="pieChartData"
+  ></canvas>
+</div>
