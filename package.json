@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~2.0.0",
     "@angular/router": "~3.0.0",
     "@types/lodash": "^4.14.38",
+    "chart.js": "^2.3.0",
     "core-js": "^2.4.1",
     "lodash": "^4.16.6",
     "rxjs": "5.0.0-beta.12",
