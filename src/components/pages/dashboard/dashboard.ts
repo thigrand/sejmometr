@@ -20,11 +20,11 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     this.partiesCfg = this.sejmometrCfg.politicalPartiesClubsData;
 
-    this.sejmometrService.getDeputiesIndexedByPP().subscribe(data => {
+    this.sejmometrService.getSubject('deputiesIndexedByPP').subscribe(data => {
       this.parties = data;
     });
-    this.sejmometrService.getTopSpendingDeputies().subscribe(mostExpensiveDeputies => {
-      this.mostExpensiveDeputies = mostExpensiveDeputies;
+    this.sejmometrService.getSubject('mostExpensiveDeputies').subscribe(mostExpensiveDeputies => {
+      this.mostExpensiveDeputies = mostExpensiveDeputies.slice(0, 5);
     });
   }
 }
