@@ -3,8 +3,8 @@
 ## SejmometrService
 
 ### Methods
-- `getSubject(subjectName: string)`
-- `sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse)`
+- `getSubject(subjectName: string)`: `Subject`
+- `sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse)`: `<number>`
 
 ### Interface
 `src/interfaces/sejmometrProvider.ts`
