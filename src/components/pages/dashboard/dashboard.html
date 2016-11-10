@@ -1,13 +1,41 @@
 <ion-content padding>
-  dashboard page
+  <div class="bar bar-header bar-light">
+    <h1 class="title">Dashboard</h1>
+  </div>
   <div class="container">
+    <div class="row" style="display: none;">
+      <div class="col col-xs-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let party of parties;">
+        <div class="row">
+          <ion-card>
+            <img src="{{partiesCfg[party.club_id] ? partiesCfg[party.club_id].img : ''}}"/>
+            <div class="card-desc-wrapper">
+              <div class="card-title">{{party.deputies.length}}</div>
+              <div class="card-subtitle">{{party.club_name}}</div>
+            </div>
+          </ion-card>
+        </div>
+      </div>
+    </div>
     <div class="row">
-      <div class="col col-xs-12 col-sm-6 col-sm-4 col-lg-3" *ngFor="let party of parties;">
-        <ion-card>
-          <img src="assets/PPlogos/pis.jpg"/>
-          <div class="card-title">{{party.deputies.length}}</div>
-          <div class="card-subtitle">{{party.club_name}}</div>
-        </ion-card>
+      <div class="col">
+        <ion-list no-lines>
+          <ion-item *ngFor="let deputy of mostExpensiveDeputies">
+            <div class="row">
+              <div class="col col-xs-12 col-sm-4 vcenter">
+                <ion-icon item-left>
+                  <img src="{{partiesCfg[deputy.club_id] ? partiesCfg[deputy.club_id].img : ''}}">
+                </ion-icon>
+                {{deputy.name}}
+              </div>
+              <div class="col col-xs-12 col-sm-4 vcenter tacenter">
+                {{deputy.club_name}}
+              </div>
+              <div class="col col-xs-12 col-sm-4 vcenter tacenter">
+                {{deputy.spent}}
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
       </div>
     </div>
   </div>
