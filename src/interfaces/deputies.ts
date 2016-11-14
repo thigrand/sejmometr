@@ -4,7 +4,7 @@ import {
   HttpResponse
 } from './';
 
-interface DeputyRow {
+export interface DeputyRow {
   'ludzie.id': string;
   'ludzie.nazwa': string;
   'ludzie.slug': string;
