@@ -5,7 +5,7 @@ import {
 } from '../interfaces/';
 import {DeputiesService} from './deputies';
 import {SejmometrCfg} from '../cfg/';
-import {SejmometrSubjectsObj} from '../interfaces/sejmometrProvider';
+import {SejmometrSubjectsObj, DeputyExpenseArrayItem} from '../interfaces/sejmometrProvider';
 
 @Injectable()
 /**
@@ -64,7 +64,7 @@ export class SejmometrService {
       this.refreshDeputiesIndexedByPP();
     }
     if (subjectName === 'mostExpensiveDeputies' && !this.subjects[subjectName]) {
-      this.subjects[subjectName] = new Subject<Array<any>>();
+      this.subjects[subjectName] = new Subject<Array<DeputyExpenseArrayItem>>();
       this.refreshMostExpensiveDeputies();
     }
 
@@ -123,10 +123,12 @@ export class SejmometrService {
         return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
       }).map(deputy => {
         return {
+          deputy_id: deputy.data['ludzie.id'],
           name: deputy.data['ludzie.nazwa'],
           club_id: deputy.data['sejm_kluby.id'],
           club_name: deputy.data['sejm_kluby.nazwa'],
-          spent: this.sumDeputyExpenses(deputy).toFixed(2)
+          spent: this.sumDeputyExpenses(deputy).toFixed(2),
+          deputyData: deputy
         };
       });
       this.getSubject('mostExpensiveDeputies').next(res);

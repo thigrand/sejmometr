@@ -1,6 +1,15 @@
 import {Subject, Observable} from 'rxjs';
 import {SingleDeputyDataHttpResponse, DeputyDataHttpResponse} from './deputies';
 
+export interface DeputyExpenseArrayItem {
+  deputy_id: string;
+  name: string;
+  club_id: string;
+  club_name: string;
+  spent: number;
+  deputyData: SingleDeputyDataHttpResponse;
+}
+
 export interface SejmometrSubjectsObj {
   allDeputies: Subject<Array<SingleDeputyDataHttpResponse>>;
   deputiesHttpResponse: Observable<DeputyDataHttpResponse>;
