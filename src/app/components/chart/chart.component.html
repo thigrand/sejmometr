@@ -1,11 +1,15 @@
 <div class="Chart">
-  {{pieChartLabels}}
-  {{pieChartData}}
-  {{pieChartType}}
+  <div class="Chart-tabs">
+    tabs
+  </div>
+  <div class="Chart-dropdown">
+    dropdown
+  </div>
   <canvas baseChart
           class="Chart-graph"
-          [chartType]="pieChartType"
-
-          [data]="pieChartData"
+          [chartType]="chartType"
+          [labels]="chartLabels"
+          [data]="chartData"
+          [legend]="chartLegend"
   ></canvas>
 </div>

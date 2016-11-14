@@ -30,12 +30,11 @@ export class ListComponent implements OnInit {
   }
 
   getDeputies() {
-    this.subscriptions.push(this.sejmometrService.deputiesHttpResponse
+    this.subscriptions.push(this.sejmometrService.getSubject('deputiesHttpResponse')
       .subscribe(
         deputiesList => {
           this.deputiesList = deputiesList.Dataobject;
           this.changeSorting('ludzie.nazwa');
-
         }
       ));
   }
@@ -43,18 +42,14 @@ export class ListComponent implements OnInit {
   changeSorting(sortKey) {
 
     if (this.orderByColumn === sortKey) {
-
       this.sortDirection = this.sortDirection === DIRECTION.ASC ? DIRECTION.DESC : DIRECTION.ASC;
-
     }
 
     this.orderByColumn = sortKey;
     this.deputiesList = _.orderBy(this.deputiesList, (item) => item.data[sortKey], [this.sortDirection]);
-
   }
 
-  isOrderedBy = (sortKey) => this.orderByColumn === sortKey;
-
+  isOrderedBy = (sortKey) => this.orderByColumn === sortKey; //Dlaczego w formie literału?
   isOrderedReverse = () => this.sortDirection === 'asc' ? true : false;
 
 }

@@ -26,7 +26,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let deputy of deputiesList">
-      <td>{{deputy.data["ludzie.nazwa"] || (deputy.data["poslowie.imie"] + " " + deputy.data["poslowie.nazwisko"])}}</td>
+      <td>{{deputy.data["ludzie.nazwa"] || (deputy.data["poslowie.imiona"] + " " + deputy.data["poslowie.nazwisko"])}}</td>
       <td>{{deputy.data["sejm_kluby.nazwa"]}}</td>
       <td>{{deputy.data["poslowie.zawod"]}}</td>
       <td>{{deputy.data["poslowie.frekwencja"]}}</td>
