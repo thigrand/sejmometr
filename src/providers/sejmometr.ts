@@ -166,7 +166,7 @@ export class SejmometrService {
       limit: '500'
     });
   }
-  private sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
+  public sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
     let res = 0;
     this.deputyExpensesArr.forEach(expenseIndex => {
       if (!isNaN(parseFloat(deputy.data[expenseIndex])) && isFinite(deputy.data[expenseIndex])) {

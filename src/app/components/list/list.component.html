@@ -22,17 +22,20 @@
       <th (click)="changeSorting('poslowie.liczba_wnioskow')">Liczba wniosków
         <span class="" *ngIf="isOrderedBy('poslowie.liczba_wnioskow')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
       </th>
+      <th (click)="changeSorting()">Suma wydatków
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let deputy of deputiesList">
-      <td>{{deputy.data["ludzie.nazwa"] || (deputy.data["poslowie.imie"] + " " + deputy.data["poslowie.nazwisko"])}}</td>
+      <td>{{deputy.data["ludzie.nazwa"] || (deputy.data["poslowie.imie_pierwsze"] + " " + deputy.data["poslowie.nazwisko"])}}</td>
       <td>{{deputy.data["sejm_kluby.nazwa"]}}</td>
       <td>{{deputy.data["poslowie.zawod"]}}</td>
       <td>{{deputy.data["poslowie.frekwencja"]}}</td>
       <td>{{deputy.data["poslowie.zbuntowanie"]}}</td>
       <td>{{deputy.data["poslowie.liczba_wypowiedzi"]}}</td>
       <td>{{deputy.data["poslowie.liczba_wnioskow"]}}</td>
+      <td>{{getSumDeputyExpenses(deputy) | currency: 'PLN':true:'1.2' }}</td>
     </tr>
   </tbody>
 </table>

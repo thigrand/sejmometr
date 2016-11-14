@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {SejmometrService} from '../../../providers/sejmometr';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SejmometrService } from '../../../providers/sejmometr';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 const DIRECTION = {
@@ -35,9 +35,13 @@ export class ListComponent implements OnInit {
         deputiesList => {
           this.deputiesList = deputiesList.Dataobject;
           this.changeSorting('ludzie.nazwa');
-
         }
       ));
+  }
+
+  getSumDeputyExpenses(deputy) {
+
+    return this.sejmometrService.sumDeputyExpenses(deputy);
   }
 
   changeSorting(sortKey) {
