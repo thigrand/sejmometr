@@ -30,10 +30,10 @@ export class ListComponent implements OnInit {
   }
 
   getDeputies() {
-    this.subscriptions.push(this.sejmometrService.deputiesHttpResponse
+    this.subscriptions.push(this.sejmometrService.getSubject('allDeputies')
       .subscribe(
         deputiesList => {
-          this.deputiesList = deputiesList.Dataobject;
+          this.deputiesList = deputiesList;
           this.changeSorting('ludzie.nazwa');
         }
       ));
