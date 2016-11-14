@@ -123,10 +123,12 @@ export class SejmometrService {
         return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
       }).map(deputy => {
         return {
+          deputy_id: deputy.data['ludzie.id'],
           name: deputy.data['ludzie.nazwa'],
           club_id: deputy.data['sejm_kluby.id'],
           club_name: deputy.data['sejm_kluby.nazwa'],
-          spent: this.sumDeputyExpenses(deputy).toFixed(2)
+          spent: this.sumDeputyExpenses(deputy).toFixed(2),
+          deputyData: deputy
         };
       });
       this.getSubject('mostExpensiveDeputies').next(res);
