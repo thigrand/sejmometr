@@ -128,7 +128,7 @@ export class SejmometrService {
           club_id: deputy.data['sejm_kluby.id'],
           club_name: deputy.data['sejm_kluby.nazwa'],
           spent: this.sumDeputyExpenses(deputy).toFixed(2),
-          deputyData: deputy
+          deputyData: deputy.data
         };
       });
       this.getSubject('mostExpensiveDeputies').next(res);
