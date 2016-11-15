@@ -30,18 +30,13 @@ export class ListComponent implements OnInit {
   }
 
   getDeputies() {
-    this.subscriptions.push(this.sejmometrService.getSubject('allDeputies')
+    this.subscriptions.push(this.sejmometrService.getSubject('mostExpensiveDeputies')
       .subscribe(
         deputiesList => {
           this.deputiesList = deputiesList;
-          this.changeSorting('ludzie.nazwa');
+          this.changeSorting('poslowie.nazwa_odwrocona');
         }
       ));
-  }
-
-  getSumDeputyExpenses(deputy) {
-
-    return this.sejmometrService.sumDeputyExpenses(deputy);
   }
 
   changeSorting(sortKey) {
@@ -53,7 +48,7 @@ export class ListComponent implements OnInit {
     }
 
     this.orderByColumn = sortKey;
-    this.deputiesList = _.orderBy(this.deputiesList, (item) => item.data[sortKey], [this.sortDirection]);
+    this.deputiesList = _.orderBy(this.deputiesList, (item) => sortKey === 'spent' ? item.spent : item.deputyData[sortKey].replace(/Ś/g, 'S').replace(/Ł/g, 'L'), [this.sortDirection]);
 
   }
 
