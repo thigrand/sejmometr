@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpService} from './http';
 import {
   DeputiesLayers,
-  DeputyDataHttpResponse,
+  DeputyDataApiResponse,
   SingleDeputyDataHttpResponse
 } from '../interfaces/';
 
@@ -27,8 +27,12 @@ export class DeputiesService {
    *  Other filter options available at  https://mojepanstwo.pl/api/sejmometr
    * @returns Observable
    */
-  getDataFiltered (filterObj = {}): Observable<DeputyDataHttpResponse> {
-    return this.httpService.getResources('poslowie.json', filterObj);
+  getDataFiltered (filterObj = {}): Observable<DeputyDataApiResponse> {
+    return this.httpService.httpRequest('poslowie.json', 'get', {
+      queryObj: filterObj
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
   /**
    * Get single deputy data
@@ -37,7 +41,10 @@ export class DeputiesService {
    * @returns Observable
    */
   getSingleData(id: string, layers?: DeputiesLayers.DeputiesLayersListArr): Observable<SingleDeputyDataHttpResponse> {
-    let layersObj = layers ? {layers} : {};
-    return this.httpService.getResources(`poslowie/${id}.json`, layersObj);
+    return this.httpService.httpRequest(`poslowie/${id}.json`, 'get', {
+      queryObj:  layers ? {layers} : {}
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
 }

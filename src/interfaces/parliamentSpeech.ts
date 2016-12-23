@@ -1,9 +1,10 @@
 import {
   Dataobject,
-  HttpResponse
+  ApiHttpResponse,
+  MappedHttpResponse
 } from './';
 
-interface ParliamentSpeechRow {
+export interface ParliamentSpeechRow {
   'ludzie.avatar': string;
   'ludzie.id': string;
   'ludzie.nazwa': string;
@@ -40,6 +41,10 @@ export interface SingleParliamentSpeechHttpResponse extends Dataobject {
   data: ParliamentSpeechRow;
 }
 
-export interface ParliamentSpeechHttpResponse extends HttpResponse {
+export interface ParliamentSpeechApiHttpResponse extends ApiHttpResponse {
   Dataobject: Array<SingleParliamentSpeechHttpResponse>;
+}
+
+export interface ParliamentSpeechHttpResponse extends MappedHttpResponse {
+  response: ParliamentSpeechApiHttpResponse;
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpService} from './http';
 import {
-  ParliamentSpeechHttpResponse,
+  ParliamentSpeechApiHttpResponse,
   SingleParliamentSpeechHttpResponse
 } from '../interfaces/';
 
@@ -26,8 +26,12 @@ export class ParliamentSpeechService {
    *  Other filter options available at  https://mojepanstwo.pl/api/sejmometr
    * @returns Observable (subscribe to it to receive http response data (interface: ParliamentSpeechHttpResponse))
    */
-  getParliamentSpeechesDataFiltered(filterObj = {}): Observable<ParliamentSpeechHttpResponse> {
-    return this.httpService.getResources('sejm_wystapienia.json', filterObj);
+  getParliamentSpeechesDataFiltered(filterObj = {}): Observable<ParliamentSpeechApiHttpResponse> {
+    return this.httpService.httpRequest('sejm_wystapienia.json', 'get', {
+      queryObj: filterObj
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
   /**
    * Get single parliament speech data
@@ -41,6 +45,10 @@ export class ParliamentSpeechService {
         'html'
       ]
     } : {};
-    return this.httpService.getResources(`sejm_wystapienia/${id}.json`, layersObj);
+    return this.httpService.httpRequest(`sejm_wystapienia/${id}.json`, 'get', {
+      queryObj: layersObj
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
 }

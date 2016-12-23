@@ -5,3 +5,4 @@ export * from './sejmometr';
 export * from './deputies';
 export * from './parliamentSpeech';
 export * from './parliamentSessions';
+export * from './utilities';
