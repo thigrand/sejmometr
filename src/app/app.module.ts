@@ -4,15 +4,7 @@ import {MyApp} from './app.component';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {SejmometrCfg} from '../cfg/';
-import {
-  DeputiesService,
-  HttpService,
-  KrsService,
-  ParliamentSessionsService,
-  ParliamentSpeechService,
-  PublicOrdersService,
-  SejmometrService
-} from '../providers/';
+import * as providers from '../providers/';
 import * as components from '../components/';
 
 @NgModule({
@@ -31,13 +23,14 @@ import * as components from '../components/';
     components.pages.DashboardPage
   ],
   providers: [
-    HttpService,
-    KrsService,
-    PublicOrdersService,
-    DeputiesService,
-    ParliamentSessionsService,
-    ParliamentSpeechService,
-    SejmometrService,
+    providers.HttpService,
+    providers.KrsService,
+    providers.PublicOrdersService,
+    providers.DeputiesService,
+    providers.ParliamentSessionsService,
+    providers.ParliamentSpeechService,
+    providers.SejmometrService,
+    providers.UtilitiesService,
     SejmometrCfg
   ]
 })
