@@ -1,12 +1,12 @@
-import {HttpService} from './http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   KrsDataApiHttpResponse,
   KrsLayers,
   KrsLegalFormsApiHttpResponse,
   SingleKrsDataHttpResponse
 } from '../interfaces/';
+import { HttpService } from './http';
 
 @Injectable()
 /**
