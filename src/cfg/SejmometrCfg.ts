@@ -3,7 +3,7 @@ export class SejmometrCfg {
   politicalPartiesClubsData = {
     '13': {
       club_id: '13',
-      club_name: 'Kukiz\'15',
+      club_name: `Kukiz'15`,
       img: 'assets/PPlogos/kukiz.png'
     },
     '2': {
@@ -29,11 +29,12 @@ export class SejmometrCfg {
     '7': {
       club_id: '7',
       club_name: 'Niezrzeszeni',
-      img: ''
+      img: 'assets/noimage.jpg'
     },
     BRAK: {
       club_id: '',
-      img: ''
+      club_name: '',
+      img: 'assets/noimage.jpg'
     }
   };
   deputyExpensesArr: Array<string> = [

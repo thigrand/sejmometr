@@ -1,14 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   SingleDeputyDataHttpResponse,
   DeputyExpenseArrayItem,
   DeputiesSortedByPPRow,
-  DeputyDataApiResponse
+  DeputyDataApiResponse,
+  PPexpense
 } from '../interfaces/';
-import {SejmometrCfg} from '../cfg/';
-import {UtilitiesService} from './utilities';
-import {DeputiesService} from './deputies';
+import { SejmometrCfg } from '../cfg/';
+import { UtilitiesService } from './utilities';
+import { DeputiesService } from './deputies';
 
 @Injectable()
 /**
@@ -16,6 +17,25 @@ import {DeputiesService} from './deputies';
  * @class SejmometrService
  */
 export class SejmometrService {
+  /**
+   * All sorting functions used in this service
+   */
+  private sortBy = {
+    deputiesL: (deputiesA, deputiesB) => {
+      return deputiesB.deputies.length - deputiesA.deputies.length;
+    },
+    deputiesExpensesSum: (deputyA: SingleDeputyDataHttpResponse, deputyB: SingleDeputyDataHttpResponse) => {
+      return (this.sumDeputyExpenses(deputyB) - this.sumDeputyExpenses(deputyA));
+    }
+  };
+  /**
+   * All filter functions used in this service
+   */
+  private filters = {
+    deputiesOutdatedTicket: singleDeputy => {
+      return singleDeputy.data['poslowie.mandat_wygasl']  === '0';
+    }
+  };
   /**
    * @constructor
    * @param deputiesService DeputiesService provider
@@ -33,9 +53,7 @@ export class SejmometrService {
    */
   getAllDeputies(): Observable<Array<SingleDeputyDataHttpResponse>> {
     return this.getDeputiesHttpResponse().map(deputyData => {
-      return deputyData.Dataobject.filter(singleDeputy => {
-        return singleDeputy.data['poslowie.mandat_wygasl']  === '0';
-      });
+      return deputyData.Dataobject.filter(this.filters.deputiesOutdatedTicket);
     });
   }
   /**
@@ -66,9 +84,7 @@ export class SejmometrService {
         }
       });
 
-      res.sort((itemA, itemB) => {
-        return itemB.deputies.length - itemA.deputies.length;
-      });
+      res.sort(this.sortBy.deputiesL);
 
       return res;
     });
@@ -80,9 +96,7 @@ export class SejmometrService {
   getMostExpensiveDeputies(): Observable<Array<DeputyExpenseArrayItem>> {
     return this.getAllDeputies().map(allDeputies => {
       let deputies = allDeputies.slice();
-      return deputies.sort((valA: SingleDeputyDataHttpResponse, valB: SingleDeputyDataHttpResponse) => {
-        return (this.sumDeputyExpenses(valB) - this.sumDeputyExpenses(valA));
-      }).map(deputy => {
+      return deputies.sort(this.sortBy.deputiesExpensesSum).map(deputy => {
         return {
           deputy_id: deputy.data['ludzie.id'],
           name: deputy.data['ludzie.nazwa'],
@@ -92,6 +106,15 @@ export class SejmometrService {
           deputyData: deputy.data
         };
       });
+    });
+  }
+  /**
+   * Get list of most spending PP
+   * @returns Observable
+   */
+  getMostExpensivePP(): Observable<Array<PPexpense>> {
+    return this.getDeputiesIndexedByPP().map(parties => {
+      return parties.map(singleParty => this.sumPPExpenses(singleParty));
     });
   }
   /**
@@ -115,11 +138,28 @@ export class SejmometrService {
    */
   private sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
     let res = 0;
+
     this.sejmometrCfg.deputyExpensesArr.forEach(expenseIndex => {
       if (this.utilitiesService.isNumber(deputy.data[expenseIndex])) {
         res += deputy.data[expenseIndex];
       }
     });
+
     return res;
+  }
+  /**
+   * Sum all PP deputies expenses.
+   * @param singleParty Single PP with all deputies.
+   * @private
+   * @returns number
+   */
+  private sumPPExpenses(singleParty: DeputiesSortedByPPRow): PPexpense {
+    return {
+      club_id: singleParty.club_id,
+      club_name: singleParty.club_name,
+      expenses: singleParty.deputies.reduce((prevV, nextV) => {
+        return (parseFloat(prevV) + this.sumDeputyExpenses(nextV)).toFixed(2);
+      }, '0')
+    };
   }
 }
