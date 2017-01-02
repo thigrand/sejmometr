@@ -4,7 +4,8 @@ import {
   SingleDeputyDataHttpResponse,
   DeputyExpenseArrayItem,
   DeputiesSortedByPPRow,
-  DeputyDataApiResponse
+  DeputyDataApiResponse,
+  PPexpense
 } from '../interfaces/';
 import { SejmometrCfg } from '../cfg/';
 import { UtilitiesService } from './utilities';
@@ -17,8 +18,8 @@ import { DeputiesService } from './deputies';
  */
 export class SejmometrService {
   /**
- * All sorting functions used in this service
- */
+   * All sorting functions used in this service
+   */
   private sortBy = {
     deputiesL: (deputiesA, deputiesB) => {
       return deputiesB.deputies.length - deputiesA.deputies.length;
@@ -108,6 +109,15 @@ export class SejmometrService {
     });
   }
   /**
+   * Get list of most spending PP
+   * @returns Observable
+   */
+  getMostExpensivePP(): Observable<Array<PPexpense>> {
+    return this.getDeputiesIndexedByPP().map(parties => {
+      return parties.map(singleParty => this.sumPPExpenses(singleParty));
+    });
+  }
+  /**
    * Make request to get all deputies data.
    * @private
    * @returns Observable
@@ -136,5 +146,20 @@ export class SejmometrService {
     });
 
     return res;
+  }
+  /**
+   * Sum all PP deputies expenses.
+   * @param singleParty Single PP with all deputies.
+   * @private
+   * @returns number
+   */
+  private sumPPExpenses(singleParty: DeputiesSortedByPPRow): PPexpense {
+    return {
+      club_id: singleParty.club_id,
+      club_name: singleParty.club_name,
+      expenses: singleParty.deputies.reduce((prevV, nextV) => {
+        return (parseFloat(prevV) + this.sumDeputyExpenses(nextV)).toFixed(2);
+      }, '0')
+    };
   }
 }

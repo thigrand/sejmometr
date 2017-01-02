@@ -11,5 +11,11 @@ export interface DeputyExpenseArrayItem {
 export interface DeputiesSortedByPPRow {
   club_id: number;
   club_name: string;
-  deputies: SingleDeputyDataHttpResponse;
+  deputies: Array<SingleDeputyDataHttpResponse>;
+}
+
+export interface PPexpense {
+  club_id: number;
+  club_name: string;
+  expenses: string;
 }
