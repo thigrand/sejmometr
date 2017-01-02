@@ -3,14 +3,14 @@
     <h1 class="title">Dashboard</h1>
   </div>
   <div class="container">
-    <div class="row" style="display: none;">
+    <div class="row">
       <div class="col col-xs-12 col-sm-4 col-md-3 col-lg-2" *ngFor="let party of parties;">
         <div class="row">
           <ion-card>
             <img src="{{partiesCfg[party.club_id] ? partiesCfg[party.club_id].img : ''}}"/>
             <div class="card-desc-wrapper">
               <div class="card-title">{{party.deputies.length}}</div>
-              <div class="card-subtitle">{{party.club_name}}</div>
+              <div class="card-subtitle">{{party.club_name || 'Niezrzeszeni'}}</div>
             </div>
           </ion-card>
         </div>
@@ -28,7 +28,7 @@
                 {{deputy.name}}
               </div>
               <div class="col col-xs-12 col-sm-4 vcenter tacenter">
-                {{deputy.club_name}}
+                {{deputy.club_name || "Niezrzeszeni"}}
               </div>
               <div class="col col-xs-12 col-sm-4 vcenter tacenter">
                 {{deputy.spent}}
