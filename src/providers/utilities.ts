@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 
 @Injectable()
 /**
- * Class with many misc features.
+ * Class with many misc features .
  * @class UtilitiesService
  */
 export class UtilitiesService {
