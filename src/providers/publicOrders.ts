@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpService} from './http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   PublicOrderDocumentsApiHttpResponse,
   PublicOrdersDataApiHttpResponse,
   PublicOrdersFields,
   SinglePublicOrdersDataHttpResponse,
 } from '../interfaces/';
+import { HttpService } from './http';
 
 @Injectable()
 /**
@@ -56,17 +56,13 @@ export class PublicOrdersService {
    * @returns Observable (subscribe to it to receive http response data (interface: PublicOrderDocumentsHttpResponse))
    */
   getPublicOrderDocuments(id: string, isDetailed: boolean = false): Observable<PublicOrderDocumentsApiHttpResponse> {
-    let httpObj = {
-      conditions: {
-        'zamowienia_publiczne_dokumenty.parent_id': [id]
-      }
-    };
-
-    if (isDetailed === true) {
-      httpObj['fields'] = ['details'];
-    }
     return this.httpService.httpRequest(`zamowienia_publiczne_dokumenty.json`, 'get', {
-      queryObj: httpObj
+      queryObj: {
+        conditions: {
+          'zamowienia_publiczne_dokumenty.parent_id': [id]
+        },
+        fields: isDetailed ? ['details'] : []
+      }
     }).map(responseObj => {
       return responseObj.response;
     });

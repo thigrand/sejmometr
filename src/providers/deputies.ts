@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpService} from './http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   DeputiesLayers,
   DeputyDataApiResponse,
   SingleDeputyDataHttpResponse
 } from '../interfaces/';
+import { HttpService } from './http';
 
 @Injectable()
 /**

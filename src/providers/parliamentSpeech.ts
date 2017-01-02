@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpService} from './http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   ParliamentSpeechApiHttpResponse,
   SingleParliamentSpeechHttpResponse
 } from '../interfaces/';
+import { HttpService } from './http';
 
 @Injectable()
 /**
@@ -40,13 +40,8 @@ export class ParliamentSpeechService {
    * @returns Observable (subscribe to it to receive http response data (interface: SingleParliamentSpeechHttpResponse))
    */
   getSingleParliamentSpeechData(id: string, isDetails: boolean = false): Observable<SingleParliamentSpeechHttpResponse> {
-    let layersObj = isDetails === true ? {
-      layers: [
-        'html'
-      ]
-    } : {};
     return this.httpService.httpRequest(`sejm_wystapienia/${id}.json`, 'get', {
-      queryObj: layersObj
+      queryObj: isDetails ? {layers: ['html']} : {}
     }).map(responseObj => {
       return responseObj.response;
     });
