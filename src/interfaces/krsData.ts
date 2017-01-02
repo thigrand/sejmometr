@@ -1,6 +1,7 @@
 import {
   Dataobject,
-  HttpResponse,
+  ApiHttpResponse,
+  MappedHttpResponse,
   KrsLayers
 } from './';
 
@@ -103,7 +104,10 @@ export interface SingleKrsDataHttpResponse extends Dataobject {
   };
 }
 
-export interface KrsDataHttpResponse extends HttpResponse {
+export interface KrsDataApiHttpResponse extends ApiHttpResponse {
   Dataobject: Array<SingleKrsDataHttpResponse>;
+}
+export interface KrsDataHttpResponse extends MappedHttpResponse {
+  response: Array<SingleKrsDataHttpResponse>;
 }
 

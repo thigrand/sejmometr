@@ -1,9 +1,10 @@
 import {
   Dataobject,
-  HttpResponse
+  ApiHttpResponse,
+  MappedHttpResponse
 } from './';
 
-interface PublicOrderDocumentRowWykonawca {
+export interface PublicOrderDocumentRowWykonawca {
   cena: number;
   id: string;
   krs_id: string;
@@ -13,14 +14,14 @@ interface PublicOrderDocumentRowWykonawca {
   walute: string;
 }
 
-interface PublicOrderWykonawca {
+export interface PublicOrderWykonawca {
   id: string;
   krs_id: string;
   miejscowosc: string;
   nazwa: string;
 }
 
-interface PublicOrderDocumentDetailsCzesciWykonawcy {
+export interface PublicOrderDocumentDetailsCzesciWykonawcy {
   cena: string;
   cena_max: string;
   data_zam: string;
@@ -34,7 +35,7 @@ interface PublicOrderDocumentDetailsCzesciWykonawcy {
   wykonawcy: Array<PublicOrderWykonawca>;
 }
 
-interface PublicOrderDocumentDetails {
+export interface PublicOrderDocumentDetails {
   'czesci-wykonawcy'?: PublicOrderDocumentDetailsCzesciWykonawcy;
   info?: string;
   inne_dokumenty?: string;
@@ -50,7 +51,7 @@ interface PublicOrderDocumentDetails {
   zmieniona_umowa?: string;
 }
 
-interface PublicOrderDocumentsRow {
+export interface PublicOrderDocumentsRow {
   'zamowienia_publiczne_dokumenty.child': string;
   'zamowienia_publiczne_dokumenty.childsCount': string;
   'zamowienia_publiczne_dokumenty.cpv1c': string;
@@ -99,6 +100,10 @@ export interface SinglePublicOrderDocumentHttpResponse extends Dataobject {
   details?: PublicOrderDocumentDetails;
 }
 
-export interface PublicOrderDocumentsHttpResponse extends HttpResponse {
+export interface PublicOrderDocumentsApiHttpResponse extends ApiHttpResponse {
   Dataobject: Array<SinglePublicOrderDocumentHttpResponse>;
+}
+
+export interface PublicOrderDocumentsHttpResponse extends MappedHttpResponse {
+  response: PublicOrderDocumentsApiHttpResponse;
 }

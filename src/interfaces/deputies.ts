@@ -1,7 +1,8 @@
 import {
   Dataobject,
   DeputiesLayers,
-  HttpResponse
+  ApiHttpResponse,
+  MappedHttpResponse
 } from './';
 
 export interface DeputyRow {
@@ -93,6 +94,10 @@ export interface SingleDeputyDataHttpResponse extends Dataobject {
   };
 }
 
-export interface DeputyDataHttpResponse extends HttpResponse {
+export interface DeputyDataApiResponse extends ApiHttpResponse {
   Dataobject: Array<SingleDeputyDataHttpResponse>;
+}
+
+export interface DeputyDataHttpResponse extends MappedHttpResponse {
+  response: DeputyDataApiResponse;
 }

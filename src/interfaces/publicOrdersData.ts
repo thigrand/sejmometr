@@ -1,10 +1,11 @@
 import {
   Dataobject,
-  HttpResponse,
+  ApiHttpResponse,
+  MappedHttpResponse,
   PublicOrdersFields
 } from './';
 
-interface PublicOrdersRow {
+export interface PublicOrdersRow {
   'zamowienia_publiczne.akcept': string;
   'zamowienia_publiczne.aukcja': string;
   'zamowienia_publiczne.czas': string;
@@ -92,6 +93,9 @@ export interface SinglePublicOrdersDataHttpResponse extends Dataobject {
   'zamowienia_publiczne-wykonawcy'?: Array<PublicOrdersFields.PublicOrderContractor>;
 }
 
-export interface PublicOrdersDataHttpResponse extends HttpResponse {
+export interface PublicOrdersDataApiHttpResponse extends ApiHttpResponse {
   Dataobject: Array<SinglePublicOrdersDataHttpResponse>;
+}
+export interface PublicOrdersDataHttpResponse extends MappedHttpResponse {
+  response: PublicOrdersDataApiHttpResponse;
 }

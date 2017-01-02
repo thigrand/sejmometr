@@ -7,4 +7,7 @@ export interface Dataobject {
   score: null;
   slug: string;
   url: string;
+  data: any;
+  layers?: any;
+  details?: any;
 }

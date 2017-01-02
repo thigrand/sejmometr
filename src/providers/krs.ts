@@ -2,9 +2,9 @@ import {HttpService} from './http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {
-  KrsDataHttpResponse,
+  KrsDataApiHttpResponse,
   KrsLayers,
-  KrsLegalFormsHttpResponse,
+  KrsLegalFormsApiHttpResponse,
   SingleKrsDataHttpResponse
 } from '../interfaces/';
 
@@ -28,8 +28,12 @@ export class KrsService {
    *  Other filter options available at  https://mojepanstwo.pl/api/krs
    * @returns Observable
    */
-  getDataFiltered(filterObj = {}): Observable<KrsDataHttpResponse> {
-    return this.httpService.getResources('krs_podmioty.json', filterObj);
+  getDataFiltered(filterObj = {}): Observable<KrsDataApiHttpResponse> {
+    return this.httpService.httpRequest('krs_podmioty.json', 'get', {
+      queryObj: filterObj
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
   /**
    * Get single krs data
@@ -38,8 +42,11 @@ export class KrsService {
    * @returns Observable
    */
   getSingleData(id: string, layers?: KrsLayers.KrsLayersListArr): Observable<SingleKrsDataHttpResponse> {
-    let layersObj = layers ? {layers} : {};
-    return this.httpService.getResources(`krs_podmioty/${id}.json`, layersObj);
+    return this.httpService.httpRequest(`krs_podmioty/${id}.json`, 'get', {
+      queryObj: layers ? {layers} : {}
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
   /**
    * Get list of krs legal forms
@@ -47,7 +54,11 @@ export class KrsService {
    *  All filter options available at  https://mojepanstwo.pl/api/krs
    * @returns Observable
    */
-  getFormyPrawne(filterObj = {}): Observable<KrsLegalFormsHttpResponse> {
-    return this.httpService.getResources('krs_formy_prawne.json', filterObj);
+  getFormyPrawne(filterObj = {}): Observable<KrsLegalFormsApiHttpResponse> {
+    return this.httpService.httpRequest('krs_formy_prawne.json', 'get', {
+      queryObj: filterObj
+    }).map(responseObj => {
+      return responseObj.response;
+    });
   }
 }

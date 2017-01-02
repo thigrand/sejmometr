@@ -17,3 +17,4 @@ export * from './parliamentSessions';
 export * from './parliamentSpeech';
 export * from './publicOrderDocuments';
 export * from './publicOrdersData';
+export * from './sejmometr';
