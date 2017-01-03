@@ -29,7 +29,7 @@ export class ChartHelperService {
   }
   public findRebels(party){
     return party.deputies.filter(( value ) => {
-      return (value.data["poslowie.zbuntowanie"] > 1) ? true : false;
+      return (value.data["poslowie.zbuntowanie"] > 1);
     }).length;
   }
 
