@@ -5,8 +5,8 @@ import {
   PublicOrdersDataApiHttpResponse,
   PublicOrdersFields,
   SinglePublicOrdersDataHttpResponse,
-} from '../interfaces/';
-import { HttpService } from './http';
+} from '../interfaces';
+import { HttpService } from './http.service';
 
 @Injectable()
 /**

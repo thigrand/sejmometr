@@ -6,10 +6,10 @@ import {
   DeputiesSortedByPPRow,
   DeputyDataApiResponse,
   PPexpense
-} from '../interfaces/';
-import { SejmometrCfg } from '../cfg/';
-import { UtilitiesService } from './utilities';
-import { DeputiesService } from './deputies';
+} from '../interfaces';
+import { SejmometrCfg } from '../../cfg';
+import { UtilitiesService } from './utilities.service';
+import { DeputiesService } from './deputies.service';
 
 @Injectable()
 /**

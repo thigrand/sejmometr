@@ -5,8 +5,8 @@ import {
   KrsLayers,
   KrsLegalFormsApiHttpResponse,
   SingleKrsDataHttpResponse
-} from '../interfaces/';
-import { HttpService } from './http';
+} from '../interfaces';
+import { HttpService } from './http.service';
 
 @Injectable()
 /**
