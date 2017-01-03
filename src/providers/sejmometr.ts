@@ -24,8 +24,8 @@ export class SejmometrService {
     deputiesL: (deputiesA, deputiesB) => {
       return deputiesB.deputies.length - deputiesA.deputies.length;
     },
-    deputiesExpensesSum: (deputyA: SingleDeputyDataHttpResponse, deputyB: SingleDeputyDataHttpResponse) => {
-      return (this.sumDeputyExpenses(deputyB) - this.sumDeputyExpenses(deputyA));
+    deputiesExpensesSum: (deputyA: DeputyExpenseArrayItem, deputyB: DeputyExpenseArrayItem) => {
+      return parseFloat(deputyB.spent) - parseFloat(deputyA.spent);
     }
   };
   /**
@@ -96,7 +96,7 @@ export class SejmometrService {
   getMostExpensiveDeputies(): Observable<Array<DeputyExpenseArrayItem>> {
     return this.getAllDeputies().map(allDeputies => {
       let deputies = allDeputies.slice();
-      return deputies.sort(this.sortBy.deputiesExpensesSum).map(deputy => {
+      return deputies.map(deputy => {
         return {
           deputy_id: deputy.data['ludzie.id'],
           name: deputy.data['ludzie.nazwa'],
@@ -105,7 +105,7 @@ export class SejmometrService {
           spent: this.sumDeputyExpenses(deputy).toFixed(2),
           deputyData: deputy.data
         };
-      });
+      }).sort(this.sortBy.deputiesExpensesSum);
     });
   }
   /**
@@ -115,6 +115,15 @@ export class SejmometrService {
   getMostExpensivePP(): Observable<Array<PPexpense>> {
     return this.getDeputiesIndexedByPP().map(parties => {
       return parties.map(singleParty => this.sumPPExpenses(singleParty));
+    });
+  }
+  /**
+   * Get list of most frequent PP
+   * @returns Observable
+   */
+  getMostFrequentPP() {
+    return this.getDeputiesIndexedByPP().map(parties => {
+      return parties.map(singleParty => this.sumPPFrequency(singleParty));
     });
   }
   /**
@@ -160,6 +169,17 @@ export class SejmometrService {
       expenses: singleParty.deputies.reduce((prevV, nextV) => {
         return (parseFloat(prevV) + this.sumDeputyExpenses(nextV)).toFixed(2);
       }, '0')
+    };
+  }
+  private sumPPFrequency(singleParty: DeputiesSortedByPPRow) {
+    let sumFreq = singleParty.deputies.reduce((prevV, nextV) => {
+      return prevV + nextV.data['poslowie.frekwencja'];
+    }, 0);
+
+    return {
+      club_id: singleParty.club_id,
+      club_name: singleParty.club_name,
+      frequency: sumFreq / singleParty.deputies.length
     };
   }
 }
