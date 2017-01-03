@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import {SejmometrService} from '../../../providers/sejmometr';
+import { SejmometrService } from '../../services';
 
 @Component({
   selector: 'app-parties',
@@ -8,42 +8,43 @@ import {SejmometrService} from '../../../providers/sejmometr';
 })
 export class PartiesComponent implements OnInit {
   public parties: Array<any> = [];
-  constructor(private sejmometrService: SejmometrService) {
+
+  constructor(
+    private sejmometrService: SejmometrService
+  ) {}
+
+  ngOnInit() {
+    this.sejmometrService.getDeputiesIndexedByPP().subscribe(data => {
+      data.forEach(element => this.prepareToView(element));
+    });
   }
 
   prepareToView(object) {
     let partyObj = {
       club_name: object.club_name,
       amount: object.deputies.length,
-      img: "false"
+      img: 'false'
     };
-    switch(object.club_name){
+    switch (object.club_name) {
       case 'Prawo i Sprawiedliwość':
-        partyObj.img = "pis.svg";
+        partyObj.img = 'pis.svg';
         break;
       case 'Platforma Obywatelska':
-        partyObj.img = "po.png";
+        partyObj.img = 'po.png';
         break;
-      case "Kukiz'15":
-        partyObj.img = "kukiz.png";
+      case 'Kukiz\'15':
+        partyObj.img = 'kukiz.png';
         break;
       case 'Nowoczesna':
-        partyObj.img = "nowoczesna.png";
+        partyObj.img = 'nowoczesna.png';
         break;
       case 'Polskie Stronnictwo Ludowe':
-        partyObj.img = "psl.png";
+        partyObj.img = 'psl.png';
         break;
       default:
-        partyObj.img = "niezrzeszeni.png";
+        partyObj.img = 'niezrzeszeni.png';
         break;
     }
     this.parties.push(partyObj);
   }
-  ngOnInit() {
-    this.sejmometrService.getDeputiesIndexedByPP().subscribe(data => {
-      console.log('parties component', data);
-      data.forEach((element)=> {this.prepareToView(element)});
-    });
-  }
-
 }

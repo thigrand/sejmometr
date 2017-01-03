@@ -1,5 +1,5 @@
-import {Subject, Observable} from 'rxjs';
-import {SingleDeputyDataHttpResponse, DeputyDataHttpResponse, DeputyRow} from './deputies';
+import { Subject, Observable } from 'rxjs';
+import { SingleDeputyDataHttpResponse, DeputyDataHttpResponse, DeputyRow } from './deputies';
 
 export interface DeputyExpenseArrayItem {
   deputy_id: string;

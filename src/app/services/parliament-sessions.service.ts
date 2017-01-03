@@ -5,8 +5,8 @@ import {
   ParliamentSessionsDaysApiHttpResponse,
   SingleParliamentSessionHttpResponse,
   SingleParliamentSessionsDayHttpResponse
-} from '../interfaces/';
-import { HttpService } from './http';
+} from '../interfaces';
+import { HttpService } from './http.service';
 
 @Injectable()
 /**

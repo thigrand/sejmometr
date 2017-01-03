@@ -4,8 +4,8 @@ import {
   DeputiesLayers,
   DeputyDataApiResponse,
   SingleDeputyDataHttpResponse
-} from '../interfaces/';
-import { HttpService } from './http';
+} from '../interfaces';
+import { HttpService } from './http.service';
 
 @Injectable()
 /**

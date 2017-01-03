@@ -1,4 +1,4 @@
-import {DeputyRow, SingleDeputyDataHttpResponse} from './deputies';
+import { DeputyRow, SingleDeputyDataHttpResponse } from './deputies';
 
 export interface DeputyExpenseArrayItem {
   deputy_id: string;

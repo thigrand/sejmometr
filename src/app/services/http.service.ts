@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  Http,
-  Response,
-  URLSearchParams
-} from '@angular/http';
+import { Http, Response, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs';
 import {
   MappedHttpResponse,
   HttpRequestOptions
 } from '../interfaces';
-import { UtilitiesService } from './utilities';
+import { UtilitiesService } from './utilities.service';
 
 @Injectable()
 /**

@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import {
   ParliamentSpeechApiHttpResponse,
   SingleParliamentSpeechHttpResponse
-} from '../interfaces/';
-import { HttpService } from './http';
+} from '../interfaces';
+import { HttpService } from './http.service';
 
 @Injectable()
 /**

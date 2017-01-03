@@ -1,11 +1,11 @@
 import * as DeputiesLayers from './deputiesLayers/';
-export {DeputiesLayers};
+export { DeputiesLayers };
 
 import * as KrsLayers from './krsLayers/';
-export {KrsLayers};
+export { KrsLayers };
 
 import * as PublicOrdersFields from './publicOrdersFields/';
-export {PublicOrdersFields};
+export { PublicOrdersFields };
 
 export * from './dataobject';
 export * from './deputies';
