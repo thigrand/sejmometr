@@ -117,6 +117,9 @@ export class UtilitiesService {
   }
 
   replaceNationalChars(str: string) {
+    if (typeof(str) !== 'string') {
+      return '';
+    }
     for (let i = 0; i < defaultDiacriticsRemovalMap.length; i++) {
       str = str.replace(defaultDiacriticsRemovalMap[i].letters, defaultDiacriticsRemovalMap[i].base);
     }
