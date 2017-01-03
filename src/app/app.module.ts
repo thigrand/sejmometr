@@ -29,6 +29,7 @@ import { BrowserComponent } from './components/browser/browser.component';
 import { ChartHelperService } from './services/chart-helper.service';
 import { DeputyComponent } from './components/deputy/deputy.component';
 import { ComponentComponent } from './components/component/component.component';
+import {UtilitiesService} from "../providers/utilities";
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { ComponentComponent } from './components/component/component.component';
     ParliamentSessionsService,
     SejmometrService,
     ChartHelperService,
-    SejmometrCfg
+    SejmometrCfg,
+    UtilitiesService
   ],
   bootstrap: [AppComponent]
 })

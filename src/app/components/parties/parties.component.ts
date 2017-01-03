@@ -40,7 +40,7 @@ export class PartiesComponent implements OnInit {
     this.parties.push(partyObj);
   }
   ngOnInit() {
-    this.sejmometrService.getDeputiesIndexedByParty().subscribe(data => {
+    this.sejmometrService.getDeputiesIndexedByPP().subscribe(data => {
       console.log('parties component', data);
       data.forEach((element)=> {this.prepareToView(element)});
     });

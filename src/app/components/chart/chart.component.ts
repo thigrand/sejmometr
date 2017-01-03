@@ -26,7 +26,8 @@ export class ChartComponent implements OnInit {
 
   getLabelsForChartBy(array, key){
     this.chartLabels = array.map((element)=>{
-      return element[key];
+      console.log(element, element[key]);
+      return element[key] === "" ? 'Niezrzeszeni' : element[key];
     });
   }
   getDataForChart(array, key){
@@ -43,7 +44,7 @@ export class ChartComponent implements OnInit {
     this.getDataForChart(this.allDeputies, $event);
   }
   ngOnInit() {
-    this.sejmometrService.getSubject('deputiesIndexedByPP').subscribe(allDeputiesInParties => {
+    this.sejmometrService.getDeputiesIndexedByPP().subscribe(allDeputiesInParties => {
       this.allDeputies = allDeputiesInParties.map((party)=>{
         return this.chartHelperService.makeObjectForChart(party);
       });

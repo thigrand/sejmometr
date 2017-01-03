@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
   }
 
   getDeputies() {
-    this.subscriptions.push(this.sejmometrService.getSubject('mostExpensiveDeputies')
+    this.subscriptions.push(this.sejmometrService.getMostExpensiveDeputies()
       .subscribe(
         deputiesList => {
           this.deputiesList = deputiesList;
