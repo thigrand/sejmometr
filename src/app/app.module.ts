@@ -20,7 +20,6 @@ import {
   HttpService,
   KrsService,
   ParliamentSessionsService,
-  ParliamentSpeechService,
   PublicOrdersService,
   SejmometrService
 } from '../providers/';
@@ -60,7 +59,6 @@ import { ComponentComponent } from './components/component/component.component';
     PublicOrdersService,
     DeputiesService,
     ParliamentSessionsService,
-    ParliamentSpeechService,
     SejmometrService,
     ChartHelperService,
     SejmometrCfg
