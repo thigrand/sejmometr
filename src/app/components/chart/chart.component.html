@@ -3,7 +3,17 @@
     tabs
   </div>
   <div class="Chart-dropdown">
-    dropdown
+    <select name="select" (change)="onChange($event.target.value)">
+      <option value="expenses" >Wydatki</option>
+      <option value="expenses_per_deputy" selected>Średnie wydatki na posła</option>
+      <option value="attendance_per_deputy">Średnia frekwencja na posła</option>
+      <option value="statement">Wypowiedzi</option>
+      <option value="statement_per_deputy">Ilość wypowiedzi na posła</option>
+      <option value="motion">Wnioski</option>
+      <option value="motion_per_deputy">Ilość wniosków na posła</option>
+      <option value="rebels">Poziom zbuntowania</option>
+      <option value="rebels_amount">Liczba zbuntowanych posłów</option>
+    </select>
   </div>
   <canvas baseChart
           class="Chart-graph"

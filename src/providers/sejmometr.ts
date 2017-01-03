@@ -71,6 +71,13 @@ export class SejmometrService {
     return this.subjects[subjectName];
   }
 
+  public getDeputiesIndexedByParty(){
+    this.subjects['deputiesIndexedByPP'] = new Subject<Array<Array<SingleDeputyDataHttpResponse>>>();
+    this.refreshDeputiesIndexedByPP();
+    console.log('getDeputiesIndexedByParty', this.subjects['deputiesIndexedByPP']);
+    return this.subjects['deputiesIndexedByPP'];
+  }
+
   public sumDeputyExpenses(deputy: SingleDeputyDataHttpResponse): number {
     let res = 0;
     this.deputyExpensesArr.forEach(expenseIndex => {

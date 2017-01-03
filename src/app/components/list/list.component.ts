@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
     this.deputiesList = _.orderBy(this.deputiesList, (item) => item.data[sortKey], [this.sortDirection]);
   }
 
-  isOrderedBy = (sortKey) => this.orderByColumn === sortKey; //Dlaczego w formie literału?
+  isOrderedBy = (sortKey) => this.orderByColumn === sortKey;
   isOrderedReverse = () => this.sortDirection === 'asc' ? true : false;
 
 }
