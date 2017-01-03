@@ -33,7 +33,7 @@ export class SejmometrCfg {
     },
     BRAK: {
       club_id: '',
-      club_name: '',
+      club_name: 'Niezrzeszeni',
       img: 'assets/noimage.jpg'
     }
   };
