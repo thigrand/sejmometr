@@ -1,8 +1,8 @@
 <table>
   <thead>
     <tr>
-      <th (click)="changeSorting('ludzie.nazwa')">Imię i nazwisko
-        <span class="" *ngIf="isOrderedBy('ludzie.nazwa')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
+      <th (click)="changeSorting('poslowie.nazwa_odwrocona')">Imię i nazwisko
+        <span class="" *ngIf="isOrderedBy('poslowie.nazwa_odwrocona')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
       </th>
       <th (click)="changeSorting('sejm_kluby.nazwa')">Nazwa partii
         <span class="" *ngIf="isOrderedBy('sejm_kluby.nazwa')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
@@ -22,17 +22,21 @@
       <th (click)="changeSorting('poslowie.liczba_wnioskow')">Liczba wniosków
         <span class="" *ngIf="isOrderedBy('poslowie.liczba_wnioskow')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
       </th>
+      <th (click)="changeSorting('spent')">Suma wydatków
+        <span class="" *ngIf="isOrderedBy('spent')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
+      </th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let deputy of deputiesList">
-      <td>{{deputy.data["ludzie.nazwa"] || (deputy.data["poslowie.imiona"] + " " + deputy.data["poslowie.nazwisko"])}}</td>
-      <td>{{deputy.data["sejm_kluby.nazwa"]}}</td>
-      <td>{{deputy.data["poslowie.zawod"]}}</td>
-      <td>{{deputy.data["poslowie.frekwencja"]}}</td>
-      <td>{{deputy.data["poslowie.zbuntowanie"]}}</td>
-      <td>{{deputy.data["poslowie.liczba_wypowiedzi"]}}</td>
-      <td>{{deputy.data["poslowie.liczba_wnioskow"]}}</td>
+      <td>{{deputy.deputyData["poslowie.nazwa_odwrocona"] || (deputy.deputyData["poslowie.imie_pierwsze"] + " " + deputy.deputyData["poslowie.nazwisko"])}}</td>
+      <td>{{deputy.deputyData["sejm_kluby.nazwa"]}}</td>
+      <td>{{deputy.deputyData["poslowie.zawod"]}}</td>
+      <td>{{deputy.deputyData["poslowie.frekwencja"]}}</td>
+      <td>{{deputy.deputyData["poslowie.zbuntowanie"]}}</td>
+      <td>{{deputy.deputyData["poslowie.liczba_wypowiedzi"]}}</td>
+      <td>{{deputy.deputyData["poslowie.liczba_wnioskow"]}}</td>
+      <td>{{deputy.spent}}</td>
     </tr>
   </tbody>
 </table>

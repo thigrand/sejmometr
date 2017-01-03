@@ -1,5 +1,5 @@
 import {Subject, Observable} from 'rxjs';
-import {SingleDeputyDataHttpResponse, DeputyDataHttpResponse} from './deputies';
+import {SingleDeputyDataHttpResponse, DeputyDataHttpResponse, DeputyRow} from './deputies';
 
 export interface DeputyExpenseArrayItem {
   deputy_id: string;
@@ -7,7 +7,7 @@ export interface DeputyExpenseArrayItem {
   club_id: string;
   club_name: string;
   spent: number;
-  deputyData: SingleDeputyDataHttpResponse;
+  deputyData: DeputyRow;
 }
 
 export interface SejmometrSubjectsObj {

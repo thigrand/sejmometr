@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {SejmometrService} from '../../../providers/sejmometr';
-import {Subscription} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { SejmometrService } from '../../../providers/sejmometr';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 const DIRECTION = {
@@ -30,11 +30,11 @@ export class ListComponent implements OnInit {
   }
 
   getDeputies() {
-    this.subscriptions.push(this.sejmometrService.getSubject('deputiesHttpResponse')
+    this.subscriptions.push(this.sejmometrService.getSubject('mostExpensiveDeputies')
       .subscribe(
         deputiesList => {
-          this.deputiesList = deputiesList.Dataobject;
-          this.changeSorting('ludzie.nazwa');
+          this.deputiesList = deputiesList;
+          this.changeSorting('poslowie.nazwa_odwrocona');
         }
       ));
   }
@@ -46,7 +46,8 @@ export class ListComponent implements OnInit {
     }
 
     this.orderByColumn = sortKey;
-    this.deputiesList = _.orderBy(this.deputiesList, (item) => item.data[sortKey], [this.sortDirection]);
+    this.deputiesList = _.orderBy(this.deputiesList, (item) => sortKey === 'spent' ? item.spent : item.deputyData[sortKey].replace(/Ś/g, 'S').replace(/Ł/g, 'L'), [this.sortDirection]);
+
   }
 
   isOrderedBy = (sortKey) => this.orderByColumn === sortKey;
