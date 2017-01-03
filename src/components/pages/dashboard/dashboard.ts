@@ -31,7 +31,7 @@ export class DashboardPage implements OnInit {
       this.mostExpensiveDeputies = mostExpensiveDeputies.slice(0, 5);
     });
 
-    this.sejmometrService.getMostExpensivePP().subscribe(mostExpensivePP => {
+    this.sejmometrService.getMostFrequentPP().subscribe(mostExpensivePP => {
       console.log(mostExpensivePP);
     });
   }
