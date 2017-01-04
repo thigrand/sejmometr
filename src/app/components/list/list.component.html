@@ -1,69 +1,85 @@
-<input class="input-filter" #nazwaInput placeholder="Wyszukaj"
-  (keydown.enter)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
-  (blur)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
->
-<select #ppSelect (change)="filterDeputiesBy('poslowie.klub_id', ppSelect)">
-  <option value="" selected>Wszystkie partie</option>
-  <option *ngFor="let pp of politicalParties" value="{{pp.club_id}}">{{pp.club_name}}</option>
-</select>
-<input class="input-filter" #zawodInput placeholder="Zawód"
-  (keydown.enter)="filterDeputiesBy('poslowie.zawod', zawodInput)"
-  (blur)="filterDeputiesBy('poslowie.zawod', zawodInput)"
->
-<select #genderSelect (change)="filterDeputiesBy('poslowie.plec', genderSelect)">
-  <option value="" selected>Kobiety i mężczyźni</option>
-  <option value="K">Kobiety</option>
-  <option value="M">Mężczyźni</option>
-</select>
-{{(deputiesListFiltered|async).length}}
-<button (click)="resetFilters(nazwaInput, ppSelect, genderSelect, zawodInput)">Zresetuj filtry</button>
-<table>
-  <thead>
-    <tr>
-      <th (click)="changeSorting('poslowie.nazwa_odwrocona')">
-        Imię i nazwisko
-        <span class="" *ngIf="isOrderedBy('poslowie.nazwa_odwrocona')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('sejm_kluby.nazwa')">
-        Nazwa partii
-        <span class="" *ngIf="isOrderedBy('sejm_kluby.nazwa')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('poslowie.zawod')">
-        Zawód
-        <span class="" *ngIf="isOrderedBy('poslowie.zawod')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('poslowie.frekwencja')">
-        Frekwencja(%)
-        <span class="" *ngIf="isOrderedBy('poslowie.frekwencja')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('poslowie.zbuntowanie')">
-        Zbuntowanie
-        <span class="" *ngIf="isOrderedBy('poslowie.zbuntowanie')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('poslowie.liczba_wypowiedzi')">
-        Liczba wypowiedzi
-        <span class="" *ngIf="isOrderedBy('poslowie.liczba_wypowiedzi')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('poslowie.liczba_wnioskow')">
-        Liczba wniosków
-        <span class="" *ngIf="isOrderedBy('poslowie.liczba_wnioskow')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-      <th (click)="changeSorting('spent')">
-        Suma wydatków
-        <span class="" *ngIf="isOrderedBy('spent')" [ngClass]="{'arrowDown' : !isOrderedReverse(), 'arrowUp' : isOrderedReverse()}"></span>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let deputy of deputiesListFiltered|async">
-      <td>{{deputy.deputyData["poslowie.nazwa_odwrocona"] || (deputy.deputyData["poslowie.imie_pierwsze"] + " " + deputy.deputyData["poslowie.nazwisko"])}}</td>
-      <td>{{deputy.deputyData["sejm_kluby.nazwa"] || 'Niezrzeszeni'}}</td>
-      <td>{{deputy.deputyData["poslowie.zawod"]}}</td>
-      <td>{{deputy.deputyData["poslowie.frekwencja"]}}</td>
-      <td>{{deputy.deputyData["poslowie.zbuntowanie"]}}</td>
-      <td>{{deputy.deputyData["poslowie.liczba_wypowiedzi"]}}</td>
-      <td>{{deputy.deputyData["poslowie.liczba_wnioskow"]}}</td>
-      <td>{{deputy.spent}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Posłowie<span class="badge">{{(deputiesListFiltered|async).length}}</span></h4>
+          </div>
+          <div class="content table-responsive table-full-width">
+            <div class="row-filter">
+              <input class="row-filter-input form-control" #nazwaInput placeholder="Wyszukaj"
+                (keydown.enter)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
+                (blur)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
+              >
+              <select #ppSelect (change)="filterDeputiesBy('poslowie.klub_id', ppSelect)" class="form-control row-filter-input">
+                <option value="" selected>Wszystkie partie</option>
+                <option *ngFor="let pp of politicalParties" value="{{pp.club_id}}">{{pp.club_name}}</option>
+              </select>
+              <input class="row-filter-input form-control" #zawodInput placeholder="Zawód"
+                (keydown.enter)="filterDeputiesBy('poslowie.zawod', zawodInput)"
+                (blur)="filterDeputiesBy('poslowie.zawod', zawodInput)"
+              >
+              <select #genderSelect (change)="filterDeputiesBy('poslowie.plec', genderSelect)" class="form-control row-filter-input">
+                <option value="" selected>Kobiety i mężczyźni</option>
+                <option value="K">Kobiety</option>
+                <option value="M">Mężczyźni</option>
+              </select>
+              <button class='btn' (click)="resetFilters(nazwaInput, ppSelect, genderSelect, zawodInput)">Zresetuj filtry</button>
+            </div>
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th (click)="changeSorting('poslowie.nazwa_odwrocona')">
+                    Imię i nazwisko
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.nazwa_odwrocona')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('sejm_kluby.nazwa')">
+                    Nazwa partii
+                    <span class="glyphicon" *ngIf="isOrderedBy('sejm_kluby.nazwa')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('poslowie.zawod')">
+                    Zawód
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.zawod')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('poslowie.frekwencja')">
+                    Frekwencja(%)
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.frekwencja')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('poslowie.zbuntowanie')">
+                    Zbuntowanie
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.zbuntowanie')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('poslowie.liczba_wypowiedzi')">
+                    Liczba wypowiedzi
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.liczba_wypowiedzi')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('poslowie.liczba_wnioskow')">
+                    Liczba wniosków
+                    <span class="glyphicon" *ngIf="isOrderedBy('poslowie.liczba_wnioskow')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                  <th (click)="changeSorting('spent')">
+                    Suma wydatków
+                    <span class="glyphicon" *ngIf="isOrderedBy('spent')" [ngClass]="{'glyphicon-chevron-down' : !isOrderedReverse(), 'glyphicon-chevron-up' : isOrderedReverse()}"></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let deputy of deputiesListFiltered|async">
+                  <td>{{deputy.deputyData["poslowie.nazwa_odwrocona"] || (deputy.deputyData["poslowie.imie_pierwsze"] + " " + deputy.deputyData["poslowie.nazwisko"])}}</td>
+                  <td>{{deputy.deputyData["sejm_kluby.nazwa"] || 'Niezrzeszeni'}}</td>
+                  <td>{{deputy.deputyData["poslowie.zawod"]}}</td>
+                  <td>{{deputy.deputyData["poslowie.frekwencja"]}}</td>
+                  <td>{{deputy.deputyData["poslowie.zbuntowanie"]}}</td>
+                  <td>{{deputy.deputyData["poslowie.liczba_wypowiedzi"]}}</td>
+                  <td>{{deputy.deputyData["poslowie.liczba_wnioskow"]}}</td>
+                  <td>{{deputy.spent}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
