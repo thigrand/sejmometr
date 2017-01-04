@@ -1,7 +1,14 @@
 .Chart{
+  .Chart-tabs{
+    .nav-link{
+      border: 1px solid cornflowerblue;
+    }
+
+  }
   .Chart-graph {
     display: block;
     width: 200px;
     height: 200px;
   }
+
 }

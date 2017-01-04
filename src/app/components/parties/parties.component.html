@@ -1,3 +1,5 @@
-<div class="Parties">
+<div class="Parties card">
+  <h2 class="Parties-header">Lista Partii w sejmie</h2>
+
   <app-tile *ngFor="let party of parties" [amount]="party.amount" [name]="party.club_name" [img]="party.img"></app-tile>
 </div>

@@ -2,11 +2,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 // Modules
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AlertModule,
+         ButtonsModule,
+         TabsModule } from 'ng2-bootstrap';
 // App
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -33,9 +35,11 @@ import * as Services from './services/';
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
     ChartsModule,
-    RouterModule.forRoot(AppRoutes)
+    RouterModule.forRoot(AppRoutes),
+    AlertModule.forRoot(),
+    ButtonsModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [
     Services.HttpService,
