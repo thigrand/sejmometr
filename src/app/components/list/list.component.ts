@@ -1,21 +1,21 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subscription} from 'rxjs';
 import * as _ from 'lodash';
+import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
 import {
   SejmometrService,
   UtilitiesService
 } from '../../services';
 
-interface FilterInterface {
-  'poslowie.nazwa_odwrocona'?: string;
-  'sejm_kluby.nazwa'?: string;
-  'poslowie.zawod'?: string;
-  'poslowie.frekwencja'?: number;
-  'poslowie.zbuntowanie'?: number;
-  'poslowie.liczba_wypowiedzi'?: number;
-  'poslowie.liczba_wnioskow'?: number;
-  'spent'?: string;
+interface FilterObj {
+  [index: string]: {
+    value: any;
+    isEnabled: boolean;
+    isStrict: boolean;
+    isNumber: boolean;
+    direction?: 'asc'|'desc';
+  };
 }
 
 @Component({
@@ -24,18 +24,81 @@ interface FilterInterface {
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, OnDestroy {
+  politicalParties;
   subscriptions: Array<Subscription> = [];
   private deputiesListAll: Array<DeputyExpenseArrayItem>;
   deputiesListFiltered: BehaviorSubject<Array<DeputyExpenseArrayItem>> = new BehaviorSubject([]);
 
   orderByColumn: BehaviorSubject<string> = new BehaviorSubject('poslowie.nazwa_odwrocona');
   sortDirection: BehaviorSubject<'asc'|'desc'> = new BehaviorSubject<'asc'|'desc'>('asc');
-  filterBy: BehaviorSubject<FilterInterface> = new BehaviorSubject<FilterInterface>({});
+  filterBy: BehaviorSubject<FilterObj> = new BehaviorSubject<FilterObj>({
+    'poslowie.nazwa_odwrocona': {
+      value: '',
+      isEnabled: false,
+      isStrict: false,
+      isNumber: false
+    },
+    'poslowie.klub_id': {
+      value: '',
+      isEnabled: false,
+      isStrict: true,
+      isNumber: false
+    },
+    'poslowie.zawod': {
+      value: '',
+      isEnabled: false,
+      isStrict: false,
+      isNumber: false
+    },
+    'poslowie.frekwencja': {
+      value: 0,
+      isEnabled: false,
+      isStrict: false,
+      isNumber: true,
+      direction: 'asc'
+    },
+    'poslowie.zbuntowanie': {
+      value: 0,
+      isEnabled: false,
+      isStrict: false,
+      isNumber: true,
+      direction: 'asc'
+    },
+    'poslowie.liczba_wypowiedzi': {
+      value: 0,
+      isEnabled: false,
+      isStrict: false,
+      isNumber: true,
+      direction: 'asc'
+    },
+    'poslowie.liczba_wnioskow': {
+      value: 0,
+      isEnabled: false,
+      isStrict: false,
+      isNumber: true,
+      direction: 'asc'
+    },
+    'spent': {
+      value: '',
+      isEnabled: false,
+      isStrict: false,
+      isNumber: true
+    },
+    'poslowie.plec': {
+      value: '',
+      isEnabled: false,
+      isStrict: true,
+      isNumber: false
+    }
+  });
 
   constructor(
     private sejmometrService: SejmometrService,
-    private utilitiesService: UtilitiesService
-  ) {}
+    private utilitiesService: UtilitiesService,
+    private sejmometrCfg: SejmometrCfg
+  ) {
+    this.politicalParties = _.values(_.omit(this.sejmometrCfg.politicalPartiesClubsData, 'BRAK'));
+  }
 
   ngOnInit() {
     this.subscriptions.push(this.sejmometrService.getMostExpensiveDeputies().subscribe(deputies => {
@@ -63,17 +126,28 @@ export class ListComponent implements OnInit, OnDestroy {
   isOrderedBy = sortKey => this.orderByColumn.getValue() === sortKey;
   isOrderedReverse = () => this.sortDirection.getValue() === 'asc';
 
-  filterDeputiesBy(filterVar, $event: Event) {
+  filterDeputiesBy(filterVar, el) {
     let filters = this.filterBy.getValue();
-    let value = $event.target['value'];
+    let value = el['value'];
 
     if (value === '') {
-      delete filters[filterVar];
+      filters[filterVar].isEnabled = false;
       this.filterBy.next(filters);
     } else if (filters[filterVar] !== value) {
-      filters[filterVar] = value;
+      filters[filterVar].value = value;
+      filters[filterVar].isEnabled = true;
       this.filterBy.next(filters);
     }
+  }
+
+  resetFilters(...Inputs) {
+    let filterObj = this.filterBy.getValue();
+    this.filterBy.next(_.forOwn(filterObj, (item) => {
+      item.isEnabled = false;
+    }));
+    Inputs.forEach(singleInput => {
+      singleInput.value = '';
+    });
   }
 
   private refreshSortFunction() {
@@ -85,8 +159,16 @@ export class ListComponent implements OnInit, OnDestroy {
     let filterFn = (item: DeputyExpenseArrayItem) => {
       let result = true;
       _.forOwn(this.filterBy.getValue(), (fVal, fIndex) => {
-        if (!_.includes(_.lowerCase(item.deputyData[fIndex]), _.lowerCase(fVal))) {
-          result = false;
+        if (fVal.isEnabled === true) {
+          if (fVal.isStrict) {
+            if (item.deputyData[fIndex] !== fVal.value) {
+              result = false;
+            }
+          } else {
+            if (!_.includes(_.lowerCase(item.deputyData[fIndex]), _.lowerCase(fVal.value))) {
+              result = false;
+            }
+          }
         }
       });
       return result;
@@ -95,4 +177,3 @@ export class ListComponent implements OnInit, OnDestroy {
     this.deputiesListFiltered.next(_.orderBy(deputiesFiltered, valueFn, [this.sortDirection.getValue()]));
   }
 }
-

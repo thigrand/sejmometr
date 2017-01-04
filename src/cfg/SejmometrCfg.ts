@@ -33,7 +33,6 @@ export class SejmometrCfg {
     },
     BRAK: {
       club_id: '',
-      club_name: '',
       img: 'assets/noimage.jpg'
     }
   };

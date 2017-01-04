@@ -67,6 +67,7 @@ export class SejmometrService {
       deputies.forEach(singleDeputy => {
         if (singleDeputy.data['sejm_kluby.id'] === '') {
           singleDeputy.data['sejm_kluby.id'] = '7';
+          singleDeputy.data['poslowie.klub_id'] = '7';
         }
         let index = res.map(function(obj, index) {
           if (obj.club_id === singleDeputy.data['sejm_kluby.id']) {
@@ -97,6 +98,10 @@ export class SejmometrService {
     return this.getAllDeputies().map(allDeputies => {
       let deputies = allDeputies.slice();
       return deputies.map(deputy => {
+        if (deputy.data['sejm_kluby.id'] === '') {
+          deputy.data['sejm_kluby.id'] = '7';
+          deputy.data['poslowie.klub_id'] = '7';
+        }
         return {
           deputy_id: deputy.data['ludzie.id'],
           name: deputy.data['ludzie.nazwa'],
