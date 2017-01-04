@@ -46,7 +46,8 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  onChange($event) {
+  onChange($event, labels) {
+    console.log($event, labels);
     this.chartType = $event === 'attendance_per_deputy' ? 'bar' : 'pie';
     this.getDataForChart(this.allDeputies, $event);
   }
