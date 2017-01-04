@@ -37,7 +37,8 @@ export class DeputiesService {
   /**
    * Get single deputy data
    * @param id The id of deputy data you want to get
-   * @param layers Array of strings with names of additional data you want to get (more infor available at https://mojepanstwo.pl/api/sejmometr)
+   * @param layers Array of strings with names of additional data you want
+   * to get (more infor available at https://mojepanstwo.pl/api/sejmometr)
    * @returns Observable
    */
   getSingleData(id: string, layers?: DeputiesLayers.DeputiesLayersListArr): Observable<SingleDeputyDataHttpResponse> {
