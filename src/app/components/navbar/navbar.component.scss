@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 0 10px;
   .Navbar-logo{
     height: inherit;
@@ -26,9 +27,37 @@
       margin-right: 5px;
     }
     .btn-primary {
-      background: white;
-      padding: 10px 20px 10px 20px;
-      color: black;
+      background-color: transparent;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #9A9A9A;
+      border: none;
+      outline: none;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .Navbar{
+    .Navbar-logo{
+      img{
+        height: inherit;
+        width: auto;
+      }
+    }
+    .Navbar-list{
+      padding-left: 25px;
+      li{
+        &:last-of-type{
+          .btn-primary {
+            margin-right: 0;
+          }
+        }
+      }
+      .btn {
+      }
+      .btn-primary {
+        padding: 5px 10px;
+      }
     }
   }
 }

@@ -1,9 +1,15 @@
 .Chart{
+  .Chart-header{
+    margin: 0;
+    margin-bottom: 10px;
+  }
   .Chart-tabs{
     .nav-link{
       border: 1px solid cornflowerblue;
     }
-
+    .Chart-singleTab{
+      padding: 20px 10px;
+    }
   }
   .Chart-graph {
     display: block;
