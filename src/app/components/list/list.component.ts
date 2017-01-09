@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription, Observable} from 'rxjs';
 import * as _ from 'lodash';
 import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
@@ -105,10 +105,8 @@ export class ListComponent implements OnInit, OnDestroy {
       this.deputiesListAll = deputies;
       this.refreshSortFunction();
     }));
-
-    this.subscriptions.push(this.orderByColumn.subscribe(() => this.refreshSortFunction()));
-    this.subscriptions.push(this.sortDirection.subscribe(() => this.refreshSortFunction()));
-    this.subscriptions.push(this.filterBy.subscribe(() => this.refreshSortFunction()));
+    this.subscriptions.push(Observable.concat(this.orderByColumn, this.sortDirection, this.filterBy)
+      .subscribe(() => this.refreshSortFunction()));
   }
 
   ngOnDestroy() {
