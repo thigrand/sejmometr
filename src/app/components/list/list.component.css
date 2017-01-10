@@ -1,0 +1,33 @@
+.header h4 {
+  padding: 15px 15px 0;
+  color: #333333;
+  font-weight: 300;
+  font-size: 22px; }
+  .header h4 .badge {
+    margin-left: 12px; }
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 0px; }
+  table thead th {
+    padding-right: 24px;
+    text-align: left;
+    cursor: pointer;
+    vertical-align: middle;
+    position: relative; }
+    table thead th .glyphicon {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      margin-top: -7px; }
+  table tbody tr td {
+    vertical-align: middle; }
+
+.row-filter {
+  padding: 3px 15px; }
+  .row-filter-input {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto; }
+
+/*# sourceMappingURL=list.component.css.map */

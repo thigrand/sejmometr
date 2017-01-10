@@ -3,14 +3,16 @@ import {
   SejmometrService,
   ChartHelperService
 } from '../../services/';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
   allDeputies: Array<any> = [];
+  topDeputies: any = {};
 
   chartLabels: Array<string> = [];
   chartData: Array<number> = [];
@@ -27,11 +29,17 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
     this.sejmometrService.getDeputiesIndexedByPP().subscribe(allDeputiesInParties => {
       this.allDeputies = allDeputiesInParties.map((party) => {
-        return this.chartHelperService.makeObjectForChart(party);
+        return this.chartHelperService.makeObjectForChartParty(party);
       });
       this.getLabelsForChartBy(this.allDeputies, 'club_name');
-      this.getDataForChart(this.allDeputies, 'expenses_per_deputy');
+      this.getDataForChart(this.allDeputies, 'expenses_per_deputy', 'parties');
     });
+
+    this.sejmometrService.getMostExpensiveDeputies().subscribe(allDeputies => {
+      this.topDeputies = this.chartHelperService.makeObjectForChartDeputies(allDeputies);
+      console.log('top deputies', this.topDeputies);
+    });
+
   }
 
   getLabelsForChartBy(array, key) {
@@ -40,15 +48,29 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  getDataForChart(array, key) {
-    this.chartData = array.map((element) => {
-      return parseFloat(element[key]);
-    });
+  getDataForChart(array, key, labels) {
+    console.log('getDataForChart', array, this.chartData, labels);
+    if (labels === 'parties') {
+      this.chartData = _.map(array, (element) => {
+        return parseFloat(element[key]);
+      });
+    } else {
+      // this.chartData = this.chartHelperService.prepareDataForChart(this.topDeputies);
+
+    }
+
+
   }
 
   onChange($event, labels) {
     console.log($event, labels);
-    this.chartType = $event === 'attendance_per_deputy' ? 'bar' : 'pie';
-    this.getDataForChart(this.allDeputies, $event);
+    // this.chartType = ($event === 'attendance_per_deputy') ? 'bar' : 'pie';
+    if (labels === 'parties') {
+      this.getLabelsForChartBy(this.allDeputies, 'club_name');
+      this.getDataForChart(this.allDeputies, $event, labels);
+    } else {
+      // this.getLabelsForChartBy(this.topDeputies, 'name');
+      this.getDataForChart(this.topDeputies, $event, labels);
+    }
   }
 }

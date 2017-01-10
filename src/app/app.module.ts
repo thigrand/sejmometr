@@ -9,6 +9,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AlertModule,
          ButtonsModule,
          TabsModule } from 'ng2-bootstrap';
+
+import 'lodash';
 // App
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -50,6 +52,7 @@ import * as Services from './services/';
     Services.SejmometrService,
     Services.ChartHelperService,
     Services.UtilitiesService,
+    Services.SegregateDeputiesService,
     SejmometrCfg
   ],
   bootstrap: [AppComponent]

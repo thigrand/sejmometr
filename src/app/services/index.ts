@@ -8,3 +8,4 @@ export * from './parliament-sessions.service';
 export * from './utilities.service';
 export * from './chart-helper.service';
 export * from './deputy-resolver.service';
+export * from './segregate-deputies.service';
