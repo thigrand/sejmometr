@@ -1,0 +1,9 @@
+.DashboardList {
+  height: 600px; }
+  .DashboardList .DashboardList-header {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    display: block; }
+
+/*# sourceMappingURL=dashboard-list.component.css.map */

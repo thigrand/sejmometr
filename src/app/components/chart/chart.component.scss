@@ -1,6 +1,7 @@
 $chart-height: 600px;
 .Chart{
   height: $chart-height;
+  width: inherit;
   .Chart-header{
     margin: 0;
     margin-bottom: 10px;
@@ -14,6 +15,7 @@ $chart-height: 600px;
     }
   }
   .Chart-graph {
+    width: inherit !important;
   }
 
 }
