@@ -4,7 +4,8 @@ import * as _ from 'lodash';
 import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
 import {
-  SejmometrService, UtilitiesService
+  SejmometrService,
+  UtilitiesService
 } from '../../services';
 
 interface FilterObj {
@@ -104,8 +105,11 @@ export class ListComponent implements OnInit, OnDestroy {
       this.deputiesListAll = deputies;
       this.refreshSortFunction();
     }));
-    this.subscriptions.push(Observable.concat(this.orderByColumn, this.sortDirection, this.filterBy)
-      .subscribe(() => this.refreshSortFunction()));
+    // this.subscriptions.push(Observable.concat(this.orderByColumn, this.sortDirection, this.filterBy)
+    //   .subscribe(() => this.refreshSortFunction()));
+    this.subscriptions.push(this.orderByColumn.subscribe(() => this.refreshSortFunction()));
+    this.subscriptions.push(this.sortDirection.subscribe(() => this.refreshSortFunction()));
+    this.subscriptions.push(this.filterBy.subscribe(() => this.refreshSortFunction()));
   }
 
   ngOnDestroy() {
