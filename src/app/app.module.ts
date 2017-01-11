@@ -18,6 +18,7 @@ import { SejmometrCfg } from '../cfg/';
 import * as Components from './components';
 import * as Directives from './directives';
 import * as Services from './services/';
+import { Const } from '../app/commons/constants';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import * as Services from './services/';
     Components.NavbarComponent,
     Components.PartiesComponent,
     Components.TileComponent,
-    Directives.ChartDirective
+    Directives.ChartDirective,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,8 @@ import * as Services from './services/';
     Services.ChartHelperService,
     Services.UtilitiesService,
     Services.SegregateDeputiesService,
-    SejmometrCfg
+    SejmometrCfg,
+    Const
   ],
   bootstrap: [AppComponent]
 })

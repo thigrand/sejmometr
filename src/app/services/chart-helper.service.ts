@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SegregateDeputiesService } from '../services/segregate-deputies.service';
+import {Const} from '../commons/constants';
 
 @Injectable()
 export class ChartHelperService {
@@ -30,7 +31,7 @@ export class ChartHelperService {
   }
   findRebels(party) {
     return party.deputies.filter(( value ) => {
-      return value.data['poslowie.zbuntowanie'] > 1;
+      return value.data[Const.P_REBEL] > 1;
     }).length;
   }
   sumDeputyExpenses(deputy): number {
@@ -53,48 +54,24 @@ export class ChartHelperService {
   makeObjectForChartParty(party) {
     let  deputiesAmount = party['deputies'].length;
     let partyObjForChart = {
-      club_id: party['club_id'],
-      club_name: party['club_name'],
+      club_id: party[Const.C_ID],
+      club_name: party[Const.C_NAME],
       deputies_amount: deputiesAmount,
       expenses: this.sumPartyExpenses(party),
       expenses_per_deputy: parseFloat((this.sumPartyExpenses(party) / deputiesAmount).toFixed(2)),
-      attendance: this.sumValueByKey(party, 'poslowie.frekwencja'),
-      attendance_per_deputy: parseFloat((this.sumValueByKey(party, 'poslowie.frekwencja') / deputiesAmount).toFixed(2)),
-      statement: this.sumValueByKey(party, 'poslowie.liczba_wypowiedzi'),
-      statement_per_deputy: parseFloat((this.sumValueByKey(party, 'poslowie.liczba_wypowiedzi') / deputiesAmount).toFixed(2)),
-      motion: this.sumValueByKey(party, 'poslowie.liczba_wnioskow'),
-      motion_per_deputy: parseFloat((this.sumValueByKey(party, 'poslowie.liczba_wnioskow') / deputiesAmount).toFixed(2)),
-      rebels: this.sumValueByKey(party, 'poslowie.zbuntowanie'),
-      rebels_per_deputy: parseFloat((this.sumValueByKey(party, 'poslowie.zbuntowanie') / deputiesAmount).toFixed(2)),
+      attendance: this.sumValueByKey(party, Const.P_ATTENDANCE),
+      attendance_per_deputy: parseFloat((this.sumValueByKey(party, Const.P_ATTENDANCE) / deputiesAmount).toFixed(2)),
+      statement: this.sumValueByKey(party, Const.P_ATTENDANCE),
+      statement_per_deputy: parseFloat((this.sumValueByKey(party, Const.P_ATTENDANCE) / deputiesAmount).toFixed(2)),
+      motion: this.sumValueByKey(party, Const.P_MOTIONS),
+      motion_per_deputy: parseFloat((this.sumValueByKey(party, Const.P_MOTIONS) / deputiesAmount).toFixed(2)),
+      rebels: this.sumValueByKey(party, Const.P_REBEL),
+      rebels_per_deputy: parseFloat((this.sumValueByKey(party, Const.P_REBEL) / deputiesAmount).toFixed(2)),
       rebels_amount: this.findRebels(party)
     };
-    // console.log(partyObjForChart);
     return partyObjForChart;
   }
-
   makeObjectForChartDeputies(allDeputies) {
-    let winners = this.segregateDeputiesService.segregateDeputies(allDeputies);
-    let chartArr = [];
-    // for (let key in winners) {
-    //   chartArr.push({
-    //
-    //   });
-    // }
-
-
-    return {
-      top_expenders: winners['top_expenders'],
-      top_attendance: winners['top_attendance'],
-      top_absent: winners['top_absent'],
-      top_statements: winners['top_statements'],
-      top_motion: winners['top_motion'],
-      top_rebels: winners['top_rebels']
-    };
-  }
-  prepareDataForChart() {
-    // let winners = this.segregateDeputiesService.segregateDeputies(allDeputies);
-
-
-
+    return this.segregateDeputiesService.segregateDeputies(allDeputies);
   }
 }

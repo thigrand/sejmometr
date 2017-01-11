@@ -29,9 +29,10 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
     this.sejmometrService.getDeputiesIndexedByPP().subscribe(allDeputiesInParties => {
       this.allDeputies = allDeputiesInParties.map((party) => {
+        console.log(party)
         return this.chartHelperService.makeObjectForChartParty(party);
       });
-      this.getLabelsForChartBy(this.allDeputies, 'club_name');
+      this.getLabelsForChartBy(this.allDeputies, 'club_name', 'parties');
       this.getDataForChart(this.allDeputies, 'expenses_per_deputy', 'parties');
     });
 
@@ -42,35 +43,35 @@ export class ChartComponent implements OnInit {
 
   }
 
-  getLabelsForChartBy(array, key) {
-    this.chartLabels = array.map((element) => {
-      return element[key] === '' ? 'Niezrzeszeni' : element[key];
-    });
+  getLabelsForChartBy(array, key, labels) {
+    if (labels === 'parties') {
+      this.chartLabels = array.map((element) => {
+        return element[key] === '' ? 'Niezrzeszeni' : element[key];
+      });
+    } else {
+      this.chartLabels = array;
+    }
   }
 
   getDataForChart(array, key, labels) {
-    console.log('getDataForChart', array, this.chartData, labels);
+
     if (labels === 'parties') {
       this.chartData = _.map(array, (element) => {
         return parseFloat(element[key]);
       });
     } else {
-      // this.chartData = this.chartHelperService.prepareDataForChart(this.topDeputies);
-
+      this.chartData = array['data'];
     }
-
-
   }
 
   onChange($event, labels) {
-    console.log($event, labels);
     // this.chartType = ($event === 'attendance_per_deputy') ? 'bar' : 'pie';
     if (labels === 'parties') {
-      this.getLabelsForChartBy(this.allDeputies, 'club_name');
+      this.getLabelsForChartBy(this.allDeputies, 'club_name', labels);
       this.getDataForChart(this.allDeputies, $event, labels);
     } else {
-      // this.getLabelsForChartBy(this.topDeputies, 'name');
-      this.getDataForChart(this.topDeputies, $event, labels);
+      this.getLabelsForChartBy(this.topDeputies[$event].labels, 'name', labels);
+      this.getDataForChart(this.topDeputies[$event], $event, labels);
     }
   }
 }
