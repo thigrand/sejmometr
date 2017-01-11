@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h4 class="title">Posłowie<span class="badge">{{(deputiesListFiltered|async).length}}</span></h4>
+            <h4 class="title">Posłowie<span class="badge">{{(deputiesListFiltered | async).length}}</span></h4>
           </div>
           <div class="content table-responsive table-full-width">
             <div class="row-filter">
@@ -65,7 +65,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let deputy of deputiesListFiltered|async">
+                <tr *ngFor="let deputy of deputiesListFiltered | async">
                   <td>{{deputy.deputyData["poslowie.nazwa_odwrocona"] || (deputy.deputyData["poslowie.imie_pierwsze"] + " " + deputy.deputyData["poslowie.nazwisko"])}}</td>
                   <td>{{deputy.deputyData["sejm_kluby.nazwa"] || 'Niezrzeszeni'}}</td>
                   <td>{{deputy.deputyData["poslowie.zawod"]}}</td>

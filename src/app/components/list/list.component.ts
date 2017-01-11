@@ -4,8 +4,7 @@ import * as _ from 'lodash';
 import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
 import {
-  SejmometrService,
-  UtilitiesService
+  SejmometrService, UtilitiesService
 } from '../../services';
 
 interface FilterObj {
