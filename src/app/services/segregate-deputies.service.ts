@@ -31,14 +31,15 @@ export class SegregateDeputiesService {
       return parseFloat((dataKey === 'spent') ? e[dataKey] : e['deputyData'][dataKey]);
     });
   }
-  getLabelsForCategory(array, labelKey) {
+  getLabelsForCategory(array, labelKey, dataKey) {
     return _.map(array, (e) => {
+      // console.log( e[labelKey] + ' - ' + ((dataKey === 'spent') ? e[dataKey] : e['deputyData'][dataKey]))
       return e[labelKey];
     });
   }
   prepareObjForChart(array, dataKey) { // accumulating data into one object
     return {
-      labels: this.getLabelsForCategory(this.getTopExpenders(array), 'name'),
+      labels: this.getLabelsForCategory(this.getTopExpenders(array), 'name', dataKey),
       data: this.getDataForCategory(this.getTopExpenders(array), dataKey),
     };
   }

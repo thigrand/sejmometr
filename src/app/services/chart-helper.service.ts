@@ -22,17 +22,17 @@ export class ChartHelperService {
     'poslowie.wartosc_wyjazdow'
   ];
   constructor(private segregateDeputiesService: SegregateDeputiesService) { }
+  findRebels(party) {
+    return party.deputies.filter(( value ) => {
+      return value.data[Const.P_REBEL] > 1;
+    }).length;
+  }
   sumValueByKey(party, key) {
     let summ = 0;
     party.deputies.forEach(( value ) => {
       summ += value.data[key];
     });
     return parseFloat(summ.toFixed(2));
-  }
-  findRebels(party) {
-    return party.deputies.filter(( value ) => {
-      return value.data[Const.P_REBEL] > 1;
-    }).length;
   }
   sumDeputyExpenses(deputy): number {
     let res = 0;

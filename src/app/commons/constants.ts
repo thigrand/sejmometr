@@ -18,15 +18,10 @@ export class Const {
   public static C_ID = 'club_id';
   public static C_NAME = 'club_name';
 
-
-
-
-
   // public static ID = 'poslowie.liczba_glosow';
   // public static ID = 'poslowie.liczba_glosowan';
   // public static ID = 'poslowie.liczba_glosowan_opuszczonych';
   // public static ID = 'poslowie.liczba_glosowan_zbuntowanych';
-
   // public static ID = 'poslowie.liczba_projektow_uchwal';
   // public static ID = 'poslowie.liczba_projektow_ustaw';
   // public static ID = 'poslowie.liczba_przejazdow';
@@ -67,5 +62,4 @@ export class Const {
   // public static ID = 'sejm_kluby.id';
   // public static ID = 'sejm_kluby.nazwa';
   // public static ID = 'sejm_kluby.skrot';
-
 }

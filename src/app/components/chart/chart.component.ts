@@ -17,9 +17,6 @@ export class ChartComponent implements OnInit {
   chartLabels: Array<string> = [];
   chartData: Array<number> = [];
   chartType: string = 'pie';
-  chartLegend: boolean = true;
-
-  mostExpensiveDeputies: Array<any> = [];
 
   constructor(
     private sejmometrService: SejmometrService,
@@ -29,7 +26,6 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
     this.sejmometrService.getDeputiesIndexedByPP().subscribe(allDeputiesInParties => {
       this.allDeputies = allDeputiesInParties.map((party) => {
-        console.log(party)
         return this.chartHelperService.makeObjectForChartParty(party);
       });
       this.getLabelsForChartBy(this.allDeputies, 'club_name', 'parties');
@@ -38,9 +34,8 @@ export class ChartComponent implements OnInit {
 
     this.sejmometrService.getMostExpensiveDeputies().subscribe(allDeputies => {
       this.topDeputies = this.chartHelperService.makeObjectForChartDeputies(allDeputies);
-      console.log('top deputies', this.topDeputies);
+      // console.log('top deputies', this.topDeputies);
     });
-
   }
 
   getLabelsForChartBy(array, key, labels) {
@@ -54,7 +49,6 @@ export class ChartComponent implements OnInit {
   }
 
   getDataForChart(array, key, labels) {
-
     if (labels === 'parties') {
       this.chartData = _.map(array, (element) => {
         return parseFloat(element[key]);

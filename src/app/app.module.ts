@@ -19,6 +19,7 @@ import * as Components from './components';
 import * as Directives from './directives';
 import * as Services from './services/';
 import { Const } from '../app/commons/constants';
+import { DashboardListComponent } from './components/dashboard-list/dashboard-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { Const } from '../app/commons/constants';
     Components.PartiesComponent,
     Components.TileComponent,
     Directives.ChartDirective,
+    DashboardListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,11 @@
-.Chart .Chart-header {
-  margin: 0;
-  margin-bottom: 10px; }
-.Chart .Chart-tabs .nav-link {
-  border: 1px solid cornflowerblue; }
-.Chart .Chart-tabs .Chart-singleTab {
-  padding: 20px 10px; }
-.Chart .Chart-graph {
-  display: block;
-  width: 200px;
-  height: 200px; }
+.Chart {
+  height: 600px; }
+  .Chart .Chart-header {
+    margin: 0;
+    margin-bottom: 10px; }
+  .Chart .Chart-tabs .nav-link {
+    border: 1px solid cornflowerblue; }
+  .Chart .Chart-tabs .Chart-singleTab {
+    padding: 20px 10px; }
 
 /*# sourceMappingURL=chart.component.css.map */
