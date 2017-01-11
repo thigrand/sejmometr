@@ -1,0 +1,19 @@
+.Tile {
+  background: #fff;
+  width: 200px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+  .Tile img {
+    width: auto;
+    height: 100px;
+    margin-bottom: 20px; }
+  .Tile .Tile-amount {
+    font-size: 36px;
+    font-weight: bold; }
+
+/*# sourceMappingURL=tile.component.css.map */

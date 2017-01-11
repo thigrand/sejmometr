@@ -1,0 +1,14 @@
+.Parties {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 30px; }
+  .Parties .Parties-header {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    display: block;
+    flex-grow: 1; }
+
+/*# sourceMappingURL=parties.component.css.map */

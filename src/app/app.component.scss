@@ -6,3 +6,9 @@ main{
   width: inherit;
 }
 
+@media (max-width: 700px) {
+  header{
+    height: 80px;
+
+  }
+}

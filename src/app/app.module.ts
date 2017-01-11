@@ -9,6 +9,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AlertModule,
          ButtonsModule,
          TabsModule } from 'ng2-bootstrap';
+
+import 'lodash';
 // App
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
@@ -16,6 +18,7 @@ import { SejmometrCfg } from '../cfg/';
 import * as Components from './components';
 import * as Directives from './directives';
 import * as Services from './services/';
+import { Const } from '../app/commons/constants';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,7 @@ import * as Services from './services/';
     Components.NavbarComponent,
     Components.PartiesComponent,
     Components.TileComponent,
-    Directives.ChartDirective
+    Directives.ChartDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,9 @@ import * as Services from './services/';
     Services.SejmometrService,
     Services.ChartHelperService,
     Services.UtilitiesService,
-    SejmometrCfg
+    Services.SegregateDeputiesService,
+    SejmometrCfg,
+    Const
   ],
   bootstrap: [AppComponent]
 })

@@ -1,8 +1,9 @@
 <div class="Chart card">
+  <h2 class="Chart-header">Statystyki</h2>
   <tabset class="Chart-tabs " >
     <tab heading='Partie' class="Chart-singleTab">
       <div class="Chart-dropdown">
-        <select name="select" (change)="onChange($event.target.value)">
+        <select name="select" (change)="onChange($event.target.value, 'parties')">
           <option value="expenses" >Wydatki</option>
           <option value="expenses_per_deputy" selected>Średnie wydatki na posła</option>
           <option value="attendance_per_deputy">Średnia frekwencja na posła</option>
@@ -17,22 +18,15 @@
     </tab>
     <tab heading='Posłowie' class="Chart-singleTab">
       <div class="Chart-dropdown">
-
-        Najwięcej wydający poslowie
-        <!--<select name="select" (change)="onChange($event.target.value)">-->
-        <!--<option value="expenses" >Wydatki</option>-->
-        <!--<option value="expenses_per_deputy" selected>Średnie wydatki na posła</option>-->
-        <!--<option value="attendance_per_deputy">Średnia frekwencja na posła</option>-->
-        <!--<option value="statement">Wypowiedzi</option>-->
-        <!--<option value="statement_per_deputy">Ilość wypowiedzi na posła</option>-->
-        <!--<option value="motion">Wnioski</option>-->
-        <!--<option value="motion_per_deputy">Ilość wniosków na posła</option>-->
-        <!--<option value="rebels">Poziom zbuntowania</option>-->
-        <!--<option value="rebels_amount">Liczba zbuntowanych posłów</option>-->
-        <!--</select>-->
-
+        <select name="select" (change)="onChange($event.target.value, 'deputies')">
+          <option value="top_expenders" >Wydatki</option>
+          <option value="top_attendance">Najpilniejsi</option>
+          <option value="top_absent">Najczęściej nieobecni</option>
+          <option value="top_statements">Wypowiedzi</option>
+          <option value="top_motion">Wnioski</option>
+          <option value="top_rebels">Poziom zbuntowania</option>
+        </select>
       </div>
-
     </tab>
   </tabset>
 

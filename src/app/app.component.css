@@ -1,0 +1,12 @@
+header {
+  width: inherit;
+  height: 100px; }
+
+main {
+  width: inherit; }
+
+@media (max-width: 700px) {
+  header {
+    height: 80px; } }
+
+/*# sourceMappingURL=app.component.css.map */

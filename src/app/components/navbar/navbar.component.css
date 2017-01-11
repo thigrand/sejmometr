@@ -1,0 +1,43 @@
+.Navbar {
+  background: white;
+  width: inherit;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px; }
+  .Navbar .Navbar-logo {
+    height: inherit; }
+    .Navbar .Navbar-logo img {
+      height: inherit;
+      width: auto; }
+  .Navbar .Navbar-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0; }
+    .Navbar .Navbar-list .btn {
+      text-decoration: none;
+      margin-right: 5px; }
+    .Navbar .Navbar-list .btn-primary {
+      background-color: transparent;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #9A9A9A;
+      border: none;
+      outline: none; }
+
+@media (max-width: 700px) {
+  .Navbar .Navbar-logo img {
+    height: inherit;
+    width: auto; }
+  .Navbar .Navbar-list {
+    padding-left: 25px; }
+    .Navbar .Navbar-list li:last-of-type .btn-primary {
+      margin-right: 0; }
+    .Navbar .Navbar-list .btn-primary {
+      padding: 5px 10px; } }
+
+/*# sourceMappingURL=navbar.component.css.map */
