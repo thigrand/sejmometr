@@ -8,5 +8,6 @@ export const AppRoutes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'browser', component: BrowserComponent},
-  {path: 'deputy', component: DeputyComponent},
+  {path: 'browser/:id', component: BrowserComponent},
+  {path: 'deputy/:id', component: DeputyComponent},
 ];

@@ -37,10 +37,17 @@ export class SegregateDeputiesService {
       return e[labelKey];
     });
   }
+  getIdsForCategory(array, labelKey, dataKey) {
+    return _.map(array, (e) => {
+      // console.log( e[labelKey] + ' - ' + ((dataKey === 'spent') ? e[dataKey] : e['deputyData'][dataKey]))
+      return e[labelKey];
+    });
+  }
   prepareObjForChart(array, dataKey) { // accumulating data into one object
     return {
       labels: this.getLabelsForCategory(this.getTopExpenders(array), 'name', dataKey),
       data: this.getDataForCategory(this.getTopExpenders(array), dataKey),
+      ids: this.getIdsForCategory(this.getTopExpenders(array), 'deputy_id', dataKey)
     };
   }
 }

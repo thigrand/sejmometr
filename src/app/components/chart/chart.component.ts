@@ -3,7 +3,8 @@ import {
   SejmometrService,
   ChartHelperService
 } from '../../services/';
-import * as _ from 'lodash';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-chart',
@@ -13,6 +14,8 @@ import * as _ from 'lodash';
 export class ChartComponent implements OnInit {
   allDeputies: Array<any> = [];
   topDeputies: any = {};
+  chartTab: string = 'parties';
+  chartSelect: string = 'expenses';
 
   chartLabels: Array<string> = [];
   chartData: Array<number> = [];
@@ -20,7 +23,8 @@ export class ChartComponent implements OnInit {
 
   constructor(
     private sejmometrService: SejmometrService,
-    private chartHelperService: ChartHelperService
+    private chartHelperService: ChartHelperService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -28,44 +32,37 @@ export class ChartComponent implements OnInit {
       this.allDeputies = allDeputiesInParties.map((party) => {
         return this.chartHelperService.makeObjectForChartParty(party);
       });
-      this.getLabelsForChartBy(this.allDeputies, 'club_name', 'parties');
-      this.getDataForChart(this.allDeputies, 'expenses_per_deputy', 'parties');
+      this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.allDeputies, 'club_name', 'parties');
+      this.chartData = this.chartHelperService.getDataForChart(this.allDeputies, 'expenses_per_deputy', 'parties');
     });
 
     this.sejmometrService.getMostExpensiveDeputies().subscribe(allDeputies => {
       this.topDeputies = this.chartHelperService.makeObjectForChartDeputies(allDeputies);
-      // console.log('top deputies', this.topDeputies);
     });
   }
-
-  getLabelsForChartBy(array, key, labels) {
-    if (labels === 'parties') {
-      this.chartLabels = array.map((element) => {
-        return element[key] === '' ? 'Niezrzeszeni' : element[key];
-      });
-    } else {
-      this.chartLabels = array;
-    }
-  }
-
-  getDataForChart(array, key, labels) {
-    if (labels === 'parties') {
-      this.chartData = _.map(array, (element) => {
-        return parseFloat(element[key]);
-      });
-    } else {
-      this.chartData = array['data'];
-    }
-  }
-
   onChange($event, labels) {
+    console.log($event, labels);
     // this.chartType = ($event === 'attendance_per_deputy') ? 'bar' : 'pie';
+    this.chartTab = labels;
+    this.chartSelect = $event;
     if (labels === 'parties') {
-      this.getLabelsForChartBy(this.allDeputies, 'club_name', labels);
-      this.getDataForChart(this.allDeputies, $event, labels);
+      this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.allDeputies, 'club_name', labels);
+      this.chartData = this.chartHelperService.getDataForChart(this.allDeputies, $event, labels);
     } else {
-      this.getLabelsForChartBy(this.topDeputies[$event].labels, 'name', labels);
-      this.getDataForChart(this.topDeputies[$event], $event, labels);
+      this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.topDeputies[$event].labels, 'name', labels);
+      this.chartData = this.chartHelperService.getDataForChart(this.topDeputies[$event], $event, labels);
+    }
+  }
+
+  public chartClicked(e: any): void {
+    console.log(this)
+    let index = e.active[0]._index;
+    let demandedDeputyId = (this.chartTab === 'deputies') ? this.topDeputies[this.chartSelect].ids[index] : -1;
+    let demandedPartyId = (this.chartTab === 'parties') ? this.allDeputies[index].club_id : -1;
+    if (this.chartTab === 'deputies') {
+      this.router.navigate(['./deputy/' + demandedDeputyId]);
+    } else {
+      this.router.navigate(['./browser/' + demandedPartyId]);
     }
   }
 }

@@ -16,10 +16,8 @@ export class DashboardListComponent implements OnInit {
     private segregateService: SegregateDeputiesService
   ) {}
   ngOnInit() {
-    console.log(this.const.L_NAME);
     this.sejmometrService.getMostExpensiveDeputies().subscribe( (allDeputies) => {
       this.mostExpensive = this.segregateService.getTopExpenders(allDeputies);
-      console.log(this.mostExpensive);
     });
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SegregateDeputiesService } from '../services/segregate-deputies.service';
 import {Const} from '../commons/constants';
+import * as _ from 'lodash';
 
 @Injectable()
 export class ChartHelperService {
@@ -73,5 +74,27 @@ export class ChartHelperService {
   }
   makeObjectForChartDeputies(allDeputies) {
     return this.segregateDeputiesService.segregateDeputies(allDeputies);
+  }
+  getDataForChart(array, key, labels) {
+    let chartData;
+    if (labels === 'parties') {
+      chartData = _.map(array, (element) => {
+        return parseFloat(element[key]);
+      });
+    } else {
+      chartData = array['data'];
+    }
+    return chartData;
+  }
+  getLabelsForChartBy(array, key, labels) {
+    let chartLabels;
+    if (labels === 'parties') {
+      chartLabels = array.map((element) => {
+        return element[key] === '' ? 'Niezrzeszeni' : element[key];
+      });
+    } else {
+      chartLabels = array;
+    }
+    return chartLabels;
   }
 }
