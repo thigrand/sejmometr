@@ -1,0 +1,28 @@
+<div class="DashboardList card">
+  <h2 class="DashboardList-header">Top 5 wydających</h2>
+
+  <table class="table table-hover table-striped">
+    <thead>
+    <tr>
+      <th >
+        Imię i nazwisko
+        <span class="glyphicon" ></span>
+      </th>
+      <th >
+        Partia
+        <span class="glyphicon" ></span>
+      </th>
+      <th >
+        Kwota
+        <span class="glyphicon" ></span>
+      </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let deputy of mostExpensive">
+      <td>{{deputy['name']}}</td>
+      <td>{{deputy['club_name']}}</td>
+      <td>{{deputy['spent']}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

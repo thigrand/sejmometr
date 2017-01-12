@@ -36,7 +36,8 @@
           [chartType]="chartType"
           [labels]="chartLabels"
           [data]="chartData"
-          [legend]="chartLegend"
+          [legend]="true"
+          (chartClick)="chartClicked($event)"
   ></canvas>
 
 </div>

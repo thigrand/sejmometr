@@ -3,6 +3,14 @@
 .Dashboard{
   background: rgba(203, 203, 210, 0.15);
   padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  app-dashboard-list, app-chart{
+    flex: 0 0 49.5%;
+  }
+
   .Dashboard-header{
     margin: 0;
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SegregateDeputiesService } from '../services/segregate-deputies.service';
 import {Const} from '../commons/constants';
+import * as _ from 'lodash';
 
 @Injectable()
 export class ChartHelperService {
@@ -22,17 +23,17 @@ export class ChartHelperService {
     'poslowie.wartosc_wyjazdow'
   ];
   constructor(private segregateDeputiesService: SegregateDeputiesService) { }
+  findRebels(party) {
+    return party.deputies.filter(( value ) => {
+      return value.data[Const.P_REBEL] > 1;
+    }).length;
+  }
   sumValueByKey(party, key) {
     let summ = 0;
     party.deputies.forEach(( value ) => {
       summ += value.data[key];
     });
     return parseFloat(summ.toFixed(2));
-  }
-  findRebels(party) {
-    return party.deputies.filter(( value ) => {
-      return value.data[Const.P_REBEL] > 1;
-    }).length;
   }
   sumDeputyExpenses(deputy): number {
     let res = 0;
@@ -73,5 +74,27 @@ export class ChartHelperService {
   }
   makeObjectForChartDeputies(allDeputies) {
     return this.segregateDeputiesService.segregateDeputies(allDeputies);
+  }
+  getDataForChart(array, key, labels) {
+    let chartData;
+    if (labels === 'parties') {
+      chartData = _.map(array, (element) => {
+        return parseFloat(element[key]);
+      });
+    } else {
+      chartData = array['data'];
+    }
+    return chartData;
+  }
+  getLabelsForChartBy(array, key, labels) {
+    let chartLabels;
+    if (labels === 'parties') {
+      chartLabels = array.map((element) => {
+        return element[key] === '' ? 'Niezrzeszeni' : element[key];
+      });
+    } else {
+      chartLabels = array;
+    }
+    return chartLabels;
   }
 }
