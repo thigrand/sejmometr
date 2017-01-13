@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
@@ -95,6 +96,7 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private sejmometrService: SejmometrService,
     private utilitiesService: UtilitiesService,
+    private route: ActivatedRoute,
     private sejmometrCfg: SejmometrCfg
   ) {
     this.politicalParties = _.values(_.omit(this.sejmometrCfg.politicalPartiesClubsData, 'BRAK'));
@@ -104,6 +106,11 @@ export class ListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.sejmometrService.getMostExpensiveDeputies().subscribe(deputies => {
       this.deputiesListAll = deputies;
       this.refreshSortFunction();
+    }));
+    this.subscriptions.push(this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.filterDeputiesBy('poslowie.klub_id', params['id']);
+      }
     }));
     // this.subscriptions.push(Observable.concat(this.orderByColumn, this.sortDirection, this.filterBy)
     //   .subscribe(() => this.refreshSortFunction()));
@@ -127,9 +134,9 @@ export class ListComponent implements OnInit, OnDestroy {
   isOrderedBy = sortKey => this.orderByColumn.getValue() === sortKey;
   isOrderedReverse = () => this.sortDirection.getValue() === 'asc';
 
-  filterDeputiesBy(filterVar, el) {
+  filterDeputiesBy(filterVar, val) {
     let filters = this.filterBy.getValue();
-    let value = el['value'];
+    let value = val['value'] ? val['value'] : val;
 
     if (value === '') {
       filters[filterVar].isEnabled = false;

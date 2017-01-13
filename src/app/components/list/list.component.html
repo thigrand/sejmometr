@@ -65,7 +65,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let deputy of deputiesListFiltered | async">
+                <tr *ngFor="let deputy of deputiesListFiltered | async" [routerLink]="['/deputy', deputy.deputyData['poslowie.id']]">
                   <td>{{deputy.deputyData["poslowie.nazwa_odwrocona"] || (deputy.deputyData["poslowie.imie_pierwsze"] + " " + deputy.deputyData["poslowie.nazwisko"])}}</td>
                   <td>{{deputy.deputyData["sejm_kluby.nazwa"] || 'Niezrzeszeni'}}</td>
                   <td>{{deputy.deputyData["poslowie.zawod"]}}</td>
