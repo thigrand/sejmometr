@@ -41,7 +41,7 @@ export class ChartComponent implements OnInit {
     });
   }
   onChange($event, labels) {
-    // console.log(this, $event, labels);
+    console.log(this, $event, labels, this.topDeputies[$event]);
     // this.chartType = ($event === 'attendance_per_deputy') ? 'bar' : 'pie';
     this.chartTab = labels;
     this.chartSelect = $event;
@@ -49,8 +49,10 @@ export class ChartComponent implements OnInit {
       this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.allDeputies, 'club_name', labels);
       this.chartData = this.chartHelperService.getDataForChart(this.allDeputies, $event, labels);
     } else {
-      this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.topDeputies[$event].labels, 'name', labels);
-      this.chartData = this.chartHelperService.getDataForChart(this.topDeputies[$event], $event, labels);
+      if ( this.topDeputies[$event] !== undefined ) {
+        this.chartLabels = this.chartHelperService.getLabelsForChartBy(this.topDeputies[$event].labels, 'name', labels);
+        this.chartData = this.chartHelperService.getDataForChart(this.topDeputies[$event], $event, labels);
+      }
     }
   }
 
