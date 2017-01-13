@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {BehaviorSubject, Subscription, Observable} from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
 import {
-  SejmometrService,
-  UtilitiesService
+  UtilitiesService,
+  SejmometrService
 } from '../../services';
 
 interface FilterObj {
