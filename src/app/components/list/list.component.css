@@ -20,8 +20,10 @@ table {
       right: 4px;
       top: 50%;
       margin-top: -7px; }
-  table tbody tr td {
-    vertical-align: middle; }
+  table tbody tr {
+    cursor: pointer; }
+    table tbody tr td {
+      vertical-align: middle; }
 
 .row-filter {
   padding: 3px 15px; }

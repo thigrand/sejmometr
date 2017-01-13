@@ -41,7 +41,7 @@ export class DeputiesService {
    * to get (more infor available at https://mojepanstwo.pl/api/sejmometr)
    * @returns Observable
    */
-  getSingleData(id: string, layers?: DeputiesLayers.DeputiesLayersListArr): Observable<SingleDeputyDataHttpResponse> {
+  getSingleData(id: any, layers?: DeputiesLayers.DeputiesLayersListArr): Observable<SingleDeputyDataHttpResponse> {
     return this.httpService.httpRequest(`poslowie/${id}.json`, 'get', {
       queryObj:  layers ? {layers} : {}
     }).map(responseObj => {

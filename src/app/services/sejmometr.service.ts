@@ -10,6 +10,7 @@ import {
 import { SejmometrCfg } from '../../cfg';
 import { UtilitiesService } from './utilities.service';
 import { DeputiesService } from './deputies.service';
+import { Const } from '../commons/constants';
 
 @Injectable()
 /**
@@ -103,7 +104,7 @@ export class SejmometrService {
           deputy.data['poslowie.klub_id'] = '7';
         }
         return {
-          deputy_id: deputy.data['ludzie.id'],
+          deputy_id: deputy.data[Const.P_ID],
           name: deputy.data['ludzie.nazwa'],
           club_id: deputy.data['sejm_kluby.id'],
           club_name: deputy.data['sejm_kluby.nazwa'],

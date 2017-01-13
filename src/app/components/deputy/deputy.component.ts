@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DeputiesService } from '../../services/deputies.service';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Const } from '../../commons/constants';
 
 @Component({
   selector: 'app-deputy',
@@ -8,13 +10,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./deputy.component.scss']
 })
 export class DeputyComponent implements OnInit  {
-  constructor(private deputiesService: DeputiesService) {}
+  public deputyDetails: any = {};
+  public Const = Const;
+  constructor(private deputiesService: DeputiesService,
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-// https://api-v3.mojepanstwo.pl/dane/poslowie/{$id}.json
-//     https://api-v3.mojepanstwo.pl/dane/poslowie/{281}.json
-    this.deputiesService.getSingleData('281').subscribe(deputy => {
-      console.log('deputy', deputy);
+    this.route.params.subscribe(params => {
+      console.log(params);
+      if (params['id']) {
+        this.deputiesService.getSingleData( parseInt(params['id'], 10) ).subscribe(deputy => {
+          this.deputyDetails = deputy.data;
+          console.log(this.deputyDetails);
+        });
+      }
     });
   }
 }

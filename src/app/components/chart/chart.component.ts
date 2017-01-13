@@ -41,7 +41,7 @@ export class ChartComponent implements OnInit {
     });
   }
   onChange($event, labels) {
-    console.log(this, $event, labels);
+    // console.log(this, $event, labels);
     // this.chartType = ($event === 'attendance_per_deputy') ? 'bar' : 'pie';
     this.chartTab = labels;
     this.chartSelect = $event;
@@ -55,8 +55,8 @@ export class ChartComponent implements OnInit {
   }
 
   public chartClicked(e: any): void {
-    console.log(e, e.active[0]);
-    if(e.active.length) {
+    // console.log(e, e.active[0]);
+    if (e.active.length) {
       let index = e.active[0]._index;
       let demandedDeputyId = (this.chartTab === 'deputies') ? this.topDeputies[this.chartSelect].ids[index] : -1;
       let demandedPartyId = (this.chartTab === 'parties') ? this.allDeputies[index].club_id : -1;

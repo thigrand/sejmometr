@@ -21,6 +21,7 @@ export interface DeputyRow {
   'poslowie.kadencja_ostatnia': string;
   'poslowie.klub_id': string;
   'poslowie.krs_osoba_id': string;
+
   'poslowie.liczba_glosow': number;
   'poslowie.liczba_glosowan': number;
   'poslowie.liczba_glosowan_opuszczonych': number;

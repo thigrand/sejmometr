@@ -1,3 +1,166 @@
-<p>
-  deputy works!
-</p>
+<div class="Deputy">
+  <h2 class="Deputy-header">{{ deputyDetails[ Const.L_NAME ] }}</h2>
+
+  <div class="DeputyProfessional card">
+    <h3>Informacje zawodowe:</h3>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Nazwa Partii</span><br>
+      {{ deputyDetails[ Const.S_NAME ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Numer Legitymacji</span><br>
+      {{ deputyDetails[ Const.P_CARD_NUMBER ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Okręg</span><br>
+      {{ deputyDetails[ Const.P_REGION ] }} {{"(Nr. " + deputyDetails[ Const.P_REGION_NMBR ] + ")" }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba głosów</span><br>
+      {{ deputyDetails[ Const.P_VOTES ] }} {{"(" + deputyDetails[ Const.P_VOTES_PERC ] + "%)" }}
+    </p>
+  </div>
+
+  <div class="DeputyPersonal card">
+    <h3>Informacje prywatne:</h3>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Data urodzenia</span><br>
+      {{ deputyDetails[ Const.P_BIRTH_DATE ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Miejsce urodzenia</span><br>
+      {{ deputyDetails[ Const.P_BIRTH_PLACE ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Miejsce zamieszkania</span><br>
+      {{ deputyDetails[ Const.P_INHABITANCY ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Zawód</span><br>
+      {{ deputyDetails[ Const.P_PROFESSION ] }}
+    </p>
+  </div>
+
+  <div class="DeputyActivity card">
+    <h3>Informacje dotyczące aktywności:</h3>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Frekwencja</span><br>
+      {{ deputyDetails[ Const.P_ATTENDANCE ] }}%
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba głosowań</span><br>
+      {{ deputyDetails[ Const.P_VOTING ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba głosowań opuszczonych</span><br>
+      {{ deputyDetails[ Const.P_VOTING_ABBANDONED ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba głosowań zbuntowanych</span><br>
+      {{ deputyDetails[ Const.P_VOTING_REBELED ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba Interpelacji</span><br>
+      {{ deputyDetails[ Const.P_INTERPELATION ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba komisji</span><br>
+      {{ deputyDetails[ Const.P_COMISSIONS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba podkomisji</span><br>
+      {{ deputyDetails[ Const.P_SUBCOMISSIONS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba projektów uchwał</span><br>
+      {{ deputyDetails[ Const.P_RESOLUTION ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba projektów ustaw</span><br>
+      {{ deputyDetails[ Const.P_ENACTMENT ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba słow</span><br>
+      {{ deputyDetails[ Const.P_WORDS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba wniosków</span><br>
+      {{ deputyDetails[ Const.P_MOTIONS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Liczba wypowiedzi</span><br>
+      {{ deputyDetails[ Const.P_STATEMENTS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Zbuntowanie</span><br>
+      {{ deputyDetails[ Const.P_REBEL ] }}
+    </p>
+  </div>
+
+  <div class="DeputyExpenses card">
+    <h3>Informacje o wydatkach [zł]:</h3>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wartość uposażenia</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_SALARY ] }} / msc.
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na wyjazdy</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_TRIPS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Refundacje kwater</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_ACCOMODATION ] }}
+    </p>
+    <h4>Wydatki biura poselskiego</h4>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na biuro (wynajem, meble itd.)</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_OFFICE ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na ekpertyzy</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_OPINIONS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na materiał biurowe</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_SUPPLIES ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na podróże pracowników</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_STUFF_TRIPS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na przejazdy</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_TRANSFERS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na spotkania</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_MEETINGS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na środki trwałe</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_ASSETS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na taksówki</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_TAXI ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na telekomunikacje</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_TELECOMMUNICATION ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na wynagrodzenia pracowników</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_STUFF_SALARIES ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki na zlecenia</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_JOBS ] }}
+    </p>
+    <p class="Deputy-part">
+      <span class="Deputy-partLabel">Wydatki niesklasyfikowane</span><br>
+      {{ deputyDetails[ Const.P_EXPENSES_UNCLASSIFIED ] }}
+    </p>
+  </div>
+</div>
+
+
