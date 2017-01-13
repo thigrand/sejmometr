@@ -12,8 +12,12 @@
                 (keydown.enter)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
                 (blur)="filterDeputiesBy('poslowie.nazwa_odwrocona', nazwaInput)"
               >
-              <select #ppSelect (change)="filterDeputiesBy('poslowie.klub_id', ppSelect)" class="form-control row-filter-input">
-                <option value="" selected>Wszystkie partie</option>
+              <select #ppSelect
+                      (change)="filterDeputiesBy('poslowie.klub_id', ppSelect)"
+                      class="form-control row-filter-input"
+                      [value]="(filterBy | async)['poslowie.klub_id'].value || ''"
+              >
+                <option value="">Wszystkie partie</option>
                 <option *ngFor="let pp of politicalParties" value="{{pp.club_id}}">{{pp.club_name}}</option>
               </select>
               <input class="row-filter-input form-control" #zawodInput placeholder="Zawód"
