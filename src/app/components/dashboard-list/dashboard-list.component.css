@@ -1,9 +1,19 @@
 .DashboardList {
-  height: 600px; }
+  height: 580px; }
   .DashboardList .DashboardList-header {
     width: 100%;
     margin: 0;
     margin-bottom: 10px;
     display: block; }
+  .DashboardList .table {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border-radius: 4px; }
+    .DashboardList .table tr td {
+      padding: 15px 8px;
+      font-size: 16px; }
+  .DashboardList .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9; }
 
 /*# sourceMappingURL=dashboard-list.component.css.map */

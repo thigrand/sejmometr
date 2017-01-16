@@ -1,6 +1,5 @@
 .Chart {
-  height: 600px;
-  width: inherit; }
+  height: 580px; }
   .Chart .Chart-header {
     margin: 0;
     margin-bottom: 10px; }
@@ -8,7 +7,8 @@
     border: 1px solid cornflowerblue; }
   .Chart .Chart-tabs .Chart-singleTab {
     padding: 20px 10px; }
-  .Chart .Chart-graph {
-    width: inherit !important; }
+  .Chart canvas, .Chart .Chart-graph {
+    max-height: 400px !important;
+    max-width: 800px !important; }
 
 /*# sourceMappingURL=chart.component.css.map */

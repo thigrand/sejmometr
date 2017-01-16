@@ -13,7 +13,7 @@
         <span class="glyphicon" ></span>
       </th>
       <th >
-        Kwota
+        Kwota [ zł ]
         <span class="glyphicon" ></span>
       </th>
     </thead>
@@ -21,7 +21,7 @@
     <tr *ngFor="let deputy of mostExpensive">
       <td>{{deputy['name']}}</td>
       <td>{{deputy['club_name']}}</td>
-      <td>{{deputy['spent']}}</td>
+      <td>{{deputy['spent'] | number:'.2-2'}}</td>
     </tr>
     </tbody>
   </table>

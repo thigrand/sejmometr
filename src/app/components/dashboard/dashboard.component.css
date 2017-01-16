@@ -5,8 +5,10 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between; }
+  .Dashboard app-parties {
+    width: 100%; }
   .Dashboard app-dashboard-list, .Dashboard app-chart {
-    flex: 0 0 49.5%; }
+    width: 49.5%; }
   .Dashboard .Dashboard-header {
     margin: 0; }
 

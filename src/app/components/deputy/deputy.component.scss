@@ -4,13 +4,20 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+
   .Deputy-header{
     flex: 1 0 100%;
   }
   .card{
     flex: 0 0 49.5%;
+    //width: 49.5%;
   }
+
   .Deputy-part{
+    &:nth-of-type(odd) {
+      background-color: #f9f9f9;
+      padding: 5px 0px;
+    }
     .Deputy-partLabel{
       color: #9A9A9A;
     }

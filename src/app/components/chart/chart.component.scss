@@ -1,7 +1,6 @@
-$chart-height: 600px;
+$chart-height: 580px;
 .Chart{
   height: $chart-height;
-  width: inherit;
   .Chart-header{
     margin: 0;
     margin-bottom: 10px;
@@ -14,8 +13,9 @@ $chart-height: 600px;
       padding: 20px 10px;
     }
   }
-  .Chart-graph {
-    width: inherit !important;
+  canvas, .Chart-graph {
+    max-height: 400px !important;
+    max-width: 800px !important;
   }
 
 }

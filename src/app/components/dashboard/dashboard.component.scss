@@ -7,8 +7,12 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  app-parties {
+    width: 100%;
+  }
   app-dashboard-list, app-chart{
-    flex: 0 0 49.5%;
+    //flex: 0 0 49.5%;
+    width: 49.5%;
   }
 
   .Dashboard-header{
