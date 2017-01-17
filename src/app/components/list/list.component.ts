@@ -140,13 +140,13 @@ export class ListComponent implements OnInit, OnDestroy {
 
   filterDeputiesBy(filterVar, val) {
     let filters = this.filterBy.getValue();
-    let value = val['value'] ? val['value'] : val;
+    let value = typeof(val['value']) !== 'undefined' ? val['value'] : val;
 
+    filters[filterVar].value = value;
     if (value === '') {
       filters[filterVar].isEnabled = false;
       this.filterBy.next(filters);
     } else if (filters[filterVar] !== value) {
-      filters[filterVar].value = value;
       filters[filterVar].isEnabled = true;
       this.filterBy.next(filters);
     }
