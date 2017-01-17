@@ -6,7 +6,8 @@ import { SejmometrCfg } from '../../../cfg/SejmometrCfg';
 import { DeputyExpenseArrayItem } from '../../interfaces';
 import {
   UtilitiesService,
-  SejmometrService
+  SejmometrService,
+  LoaderService
 } from '../../services';
 
 interface FilterObj {
@@ -97,15 +98,18 @@ export class ListComponent implements OnInit, OnDestroy {
     private sejmometrService: SejmometrService,
     private utilitiesService: UtilitiesService,
     private route: ActivatedRoute,
-    private sejmometrCfg: SejmometrCfg
+    private sejmometrCfg: SejmometrCfg,
+    private loaderService: LoaderService
   ) {
     this.politicalParties = _.values(_.omit(this.sejmometrCfg.politicalPartiesClubsData, 'BRAK'));
   }
 
   ngOnInit() {
+    this.loaderService.displayLoader();
     this.subscriptions.push(this.sejmometrService.getMostExpensiveDeputies().subscribe(deputies => {
       this.deputiesListAll = deputies;
       this.refreshSortFunction();
+      this.loaderService.hideLoader();
     }));
     this.subscriptions.push(this.route.params.subscribe(params => {
       if (params['id']) {

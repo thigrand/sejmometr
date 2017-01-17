@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
   SejmometrService,
-  ChartHelperService
+  ChartHelperService,
+  LoaderService
 } from '../../services/';
 import {Router} from '@angular/router';
 
@@ -24,10 +25,12 @@ export class ChartComponent implements OnInit {
   constructor(
     private sejmometrService: SejmometrService,
     private chartHelperService: ChartHelperService,
-    private router: Router
+    private router: Router,
+    private loaderService: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loaderService.displayLoader();
     this.sejmometrService.getDeputiesIndexedByPP().subscribe(allDeputiesInParties => {
       this.allDeputies = allDeputiesInParties.map((party) => {
         return this.chartHelperService.makeObjectForChartParty(party);
@@ -38,6 +41,7 @@ export class ChartComponent implements OnInit {
 
     this.sejmometrService.getMostExpensiveDeputies().subscribe(allDeputies => {
       this.topDeputies = this.chartHelperService.makeObjectForChartDeputies(allDeputies);
+      this.loaderService.hideLoader();
     });
   }
   onChange($event, labels) {

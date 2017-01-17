@@ -20,6 +20,7 @@ import * as Directives from './directives';
 import * as Services from './services/';
 import { Const } from '../app/commons/constants';
 import { DashboardListComponent } from './components/dashboard-list/dashboard-list.component';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DashboardListComponent } from './components/dashboard-list/dashboard-li
     Components.TileComponent,
     Directives.ChartDirective,
     DashboardListComponent,
+    PreloaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,7 @@ import { DashboardListComponent } from './components/dashboard-list/dashboard-li
     Services.ChartHelperService,
     Services.UtilitiesService,
     Services.SegregateDeputiesService,
+    Services.LoaderService,
     SejmometrCfg,
     Const
   ],
