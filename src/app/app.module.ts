@@ -27,7 +27,6 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     AppComponent,
     Components.BrowserComponent,
     Components.ChartComponent,
-    Components.ComponentComponent,
     Components.DashboardComponent,
     Components.DeputyComponent,
     Components.ListComponent,
