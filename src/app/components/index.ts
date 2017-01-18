@@ -1,6 +1,5 @@
 export * from './browser';
 export * from './chart';
-export * from './component';
 export * from './dashboard';
 export * from './deputy';
 export * from './list';
