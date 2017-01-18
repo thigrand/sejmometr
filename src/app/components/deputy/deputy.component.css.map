@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAO;EACL,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,GAAG;EACnB,SAAS,EAAE,IAAI;EACf,eAAe,EAAE,aAAa;EAE9B,sBAAc;IACZ,IAAI,EAAE,QAAQ;EAEhB,aAAK;IACH,IAAI,EAAE,SAAS;EAKf,qCAAmB;IACjB,gBAAgB,EAAE,OAAO;IACzB,OAAO,EAAE,OAAO;EAElB,sCAAiB;IACf,KAAK,EAAE,OAAO",
+"sources": ["deputy.component.scss"],
+"names": [],
+"file": "deputy.component.css"
+}

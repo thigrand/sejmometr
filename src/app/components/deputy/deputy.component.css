@@ -1,0 +1,17 @@
+.Deputy {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .Deputy .Deputy-header {
+    flex: 1 0 100%; }
+  .Deputy .card {
+    flex: 0 0 49.5%; }
+  .Deputy .Deputy-part:nth-of-type(odd) {
+    background-color: #f9f9f9;
+    padding: 5px 0px; }
+  .Deputy .Deputy-part .Deputy-partLabel {
+    color: #9A9A9A; }
+
+/*# sourceMappingURL=deputy.component.css.map */
