@@ -67,9 +67,9 @@ export class ChartComponent implements OnInit {
       let demandedDeputyId = (this.chartTab === 'deputies') ? this.topDeputies[this.chartSelect].ids[index] : -1;
       let demandedPartyId = (this.chartTab === 'parties') ? this.allDeputies[index].club_id : -1;
       if (this.chartTab === 'deputies') {
-        this.router.navigate(['/deputy/' + demandedDeputyId]);
+        this.router.navigate(['deputy/' + demandedDeputyId]);
       } else {
-        this.router.navigate(['/browser/' + demandedPartyId]);
+        this.router.navigate(['browser/' + demandedPartyId]);
       }
     }
   }
